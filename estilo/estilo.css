@@ -1,0 +1,46 @@
+*{
+	padding: 0px;
+	margin: 0px;
+}
+
+nav{	
+	border: 1px solid red;
+}
+
+nav li{
+	display: inline-block;
+	float: right;
+}
+
+nav li a{
+	display: block;
+	background: red;
+	padding: 10px;
+	margin-right: 10px;
+}
+
+header{
+	background: url(../img/ninopc.jpg);
+	border: 1px solid green;
+}
+
+header article{
+	width: 300px;
+	margin: 0 auto;
+}
+
+header article form{
+	padding: 10px;	
+}
+
+header article form input{
+	display: block;
+	width: 100%;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+
+
+section{
+	border: 1px solid blue;
+}
