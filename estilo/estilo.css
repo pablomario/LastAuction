@@ -1,46 +1,118 @@
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800);
+
 *{
 	padding: 0px;
-	margin: 0px;
+	margin: 0px;	
+	font-family: 'Open Sans', sans-serif;
 }
 
-nav{	
-	border: 1px solid red;
+p{
+	color: #2C393B;
 }
 
-nav li{
-	display: inline-block;
-	float: right;
-}
-
-nav li a{
-	display: block;
-	background: red;
-	padding: 10px;
-	margin-right: 10px;
-}
-
-header{
-	background: url(../img/ninopc.jpg);
-	border: 1px solid green;
-}
-
-header article{
-	width: 300px;
+.centrado{
+	width: 60%;
 	margin: 0 auto;
 }
 
-header article form{
-	padding: 10px;	
+nav{	
+	padding-top: 5px;
+	border-bottom: #5f5f5f;
 }
 
-header article form input{
-	display: block;
-	width: 100%;
-	padding: 5px;
-	margin-bottom: 10px;
+nav ul {
+	float: right;	
+	margin-top: 30px;	
+}
+
+nav ul li{
+	display: inline;
+}
+
+nav li a{
+	color: #2C393B;
+	padding: 10px;
+	margin-right: 10px;
+	text-decoration: none;
+}
+
+nav li .inicio:hover{
+	border-bottom: 3px solid #019700;
+	color: #019700;
+}
+
+nav li .login:hover{
+	border-bottom: 3px solid #ff9700; 
+	color: #ff9700; 
+}
+
+nav li .registro:hover{
+	border-bottom: 3px solid #ff0050; 
+	color: #ff0050; 
+}
+
+nav li .contacto:hover{
+	border-bottom: 3px solid #00c9ff; 
+	color: #00c9ff; 
+}
+
+header{
+	background:#272822 url(../img/portada.jpg) center;	 
+	background-size: cover;
+	height: 650px;
+}
+
+header article{
+	padding: 150px;
+	text-align: center;
+}
+
+header article h1{	
+	font-weight: 800;
+	color: #fff;
+	font-size: 2.6em;
+	margin-bottom: 30px;
+}
+
+header article a{
+	padding: 10px;
+	margin: 5px 10px 5px 10px;
+	color: #fff;
+	font-size: 1.7em;
+	text-transform: uppercase;
+	text-decoration: none;	
+	border: 1px solid #fff;
+	display: inline-block;
+}
+
+header article .login:hover{
+	border: 1px solid #ff9700;
+	color: #ff9700;
+}
+
+header article .registro:hover{
+	border: 1px solid #ff0050; 
+	color: #ff0050; 
+}
+
+header article .curiosear:hover{
+	border: 1px solid #00c9ff;
+	color: #00c9ff; 
+}
+
+section{	
+	min-height: 400px;
+}
+
+.amarillo{
+	background: #ff9700; 
 }
 
 
-section{
-	border: 1px solid blue;
+footer{
+	background: #2C393B;
+	color: #fff;
+	text-align: center;
+	padding: 20px;
 }
