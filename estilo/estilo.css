@@ -12,7 +12,7 @@ p{
 }
 
 .centrado{
-	width: 60%;
+	width: 80%;
 	margin: 0 auto;
 }
 
@@ -61,6 +61,7 @@ header{
 	background:#272822 url(../img/portada.jpg) center;	 
 	background-size: cover;
 	height: 650px;
+	border-bottom: 1px solid #fff;
 }
 
 header article{
@@ -101,17 +102,61 @@ header article .curiosear:hover{
 	color: #00c9ff; 
 }
 
+
+/* SECTIONS */
+
 section{	
 	min-height: 400px;
+}
+
+section article{
+	padding: 30px 10px;
+}
+
+.gris{
+	background: #2C393B;
+	color: #fff;
 }
 
 .amarillo{
 	background: #ff9700; 
 }
 
+.productos{
+	padding-top: 30px;
+}
+
+.productos article{
+	text-align: center;
+	margin: 3px;
+	padding: 3px;
+	display: inline-block;
+	border: 1px solid #2C393B;
+	height: 300px;
+	width: 180px;
+}
+
+.productos article:hover{
+	box-shadow: 0px 0px 7px rgba(46,46,46,0.6);	
+}
+
+
+.formularios{	
+	text-align: center;
+	color: #fff;
+}
+
+section article form input{
+	display: block;
+	padding: 5px;
+	border: 1px solid #2C393B;
+	width: 300px;
+	margin: 10px auto; 
+}
+
 
 footer{
-	background: #2C393B;
+	background: #272623;
 	color: #fff;
 	text-align: center;
 	padding: 20px;
