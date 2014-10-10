@@ -7,18 +7,23 @@
 	font-family: 'Open Sans', sans-serif;
 }
 
-p{
+body{
+	background: #fff;
+}
+
+p, h1, h2, h3{
 	color: #2C393B;
 }
 
 .centrado{
-	width: 80%;
+	width: 1000px;
 	margin: 0 auto;
 }
 
 nav{	
-	padding-top: 5px;
+	padding: 10px;
 	border-bottom: #5f5f5f;
+	background: #ededed;	
 }
 
 nav ul {
@@ -57,17 +62,63 @@ nav li .contacto:hover{
 	color: #00c9ff; 
 }
 
-header{
-	background:#272822 url(../img/portada.jpg) center;	 
-	background-size: cover;
-	height: 650px;
-	border-bottom: 1px solid #fff;
+header{		
+	padding-top: 120px;
+	min-height: 450px;
+	padding: 20px;
+	border-bottom: 1px solid red;
+	display: block;
 }
 
-header article{
-	padding: 150px;
+header article{		
+	display: inline-block;
+	padding: 10px;	
+	float: left;
+	margin: 5px;
+	border: 1px solid #B7C8CA;
+	background: #fff;
+}
+
+header aside{
+	float: right;
+	display: inline;
+	margin-top: 5px;
+	padding: 10px;
+	border: 1px solid #B7C8CA;
+	background: #fff;
+	width: 310px;
+	height: 100%;
 	text-align: center;
 }
+
+header aside h2{
+	text-align: right;
+	padding: 5px;
+}
+
+header aside form input{
+	margin: 5px auto;
+	display: block;
+	padding: 5px;
+	width: 90%;
+}
+
+header aside form input[type='submit']{
+	border: 1px solid #ff9700; 
+	color: #ff9700; 
+	width: 95%;
+	padding: 5px;
+	background: inherit;
+}
+
+header aside form input[type='submit']:hover{
+	background-color: #ff9700;
+	color: #2C393B;
+	cursor: pointer;
+}
+
+
+
 
 header article h1{	
 	font-weight: 800;
@@ -76,31 +127,9 @@ header article h1{
 	margin-bottom: 30px;
 }
 
-header article a{
-	padding: 10px;
-	margin: 5px 10px 5px 10px;
-	color: #fff;
-	font-size: 1.7em;
-	text-transform: uppercase;
-	text-decoration: none;	
-	border: 1px solid #fff;
-	display: inline-block;
-}
 
-header article .login:hover{
-	border: 1px solid #ff9700;
-	color: #ff9700;
-}
 
-header article .registro:hover{
-	border: 1px solid #ff0050; 
-	color: #ff0050; 
-}
 
-header article .curiosear:hover{
-	border: 1px solid #00c9ff;
-	color: #00c9ff; 
-}
 
 
 /* SECTIONS */
