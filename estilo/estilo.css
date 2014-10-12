@@ -11,8 +11,18 @@ body{
 	background: #fff;
 }
 
+
 p, h1, h2, h3{
 	color: #2C393B;
+}
+
+.gris{
+	background: #2C393B;
+	color: #fff;
+}
+
+.amarillo{
+	background: #ff9700; 
 }
 
 .centrado{
@@ -63,10 +73,9 @@ nav li .contacto:hover{
 }
 
 header{		
-	padding-top: 120px;
+	
 	min-height: 450px;
-	padding: 20px;
-	border-bottom: 1px solid red;
+	padding: 10px;	
 	display: block;
 }
 
@@ -74,26 +83,29 @@ header article{
 	display: inline-block;
 	padding: 10px;	
 	float: left;
-	margin: 5px;
-	border: 1px solid #B7C8CA;
+	margin: 5px;	
 	background: #fff;
 }
 
 header aside{
 	float: right;
-	display: inline;
-	margin-top: 5px;
-	padding: 10px;
-	border: 1px solid #B7C8CA;
-	background: #fff;
+	display: inline;		
 	width: 310px;
 	height: 100%;
 	text-align: center;
+	margin-bottom: 10px;
 }
 
 header aside h2{
 	text-align: right;
-	padding: 5px;
+	padding: 5px;	
+	margin-bottom: 15px; 
+	border-bottom: 2px solid #2C393B;
+}
+
+header aside a{
+	color: #00c9ff;	
+	text-decoration: none;
 }
 
 header aside form input{
@@ -117,18 +129,43 @@ header aside form input[type='submit']:hover{
 	cursor: pointer;
 }
 
-
-
-
-header article h1{	
-	font-weight: 800;
-	color: #fff;
-	font-size: 2.6em;
-	margin-bottom: 30px;
+header aside ul a{
+	color: #2C393B;
 }
 
+header aside ul li{
+	list-style: none;
+	text-align: right;	
+	margin-bottom: 3px;
+	border-bottom: 1px solid #D0DCDD;
+	padding: 5px;
+	background: url('../img/flecha.png') left no-repeat;
+}
 
+.casa:hover{
+	border-bottom: 2px solid #019700;
+	color: #019700;
+}
 
+.joyeria:hover{
+	border-bottom: 2px solid #ff9700;
+	color: #ff9700;
+}
+
+.moda:hover{
+	border-bottom: 2px solid #ff0050; 
+	color: #ff0050; 
+}
+
+.deporte:hover{
+	border-bottom: 2px solid #00c9ff;
+	color: #00c9ff;	
+}
+
+.electronica:hover{
+	border-bottom: 2px solid #F76D09;
+	color: #F76D09;
+}
 
 
 
@@ -142,31 +179,24 @@ section article{
 	padding: 30px 10px;
 }
 
-.gris{
-	background: #2C393B;
-	color: #fff;
-}
-
-.amarillo{
-	background: #ff9700; 
-}
-
-.productos{
-	padding-top: 30px;
+.productos h1{
+	padding: 5px;	
+	margin-bottom: 15px; 
+	border-bottom: 2px solid #2C393B;
 }
 
 .productos article{
 	text-align: center;
 	margin: 3px;
 	padding: 3px;
-	display: inline-block;
-	border: 1px solid #2C393B;
+	display: inline-block;	
 	height: 300px;
 	width: 180px;
 }
 
 .productos article:hover{
-	box-shadow: 0px 0px 7px rgba(46,46,46,0.6);	
+	box-shadow: 0px 0px 7px rgba(46,46,46,0.3);
+	cursor: pointer;	
 }
 
 

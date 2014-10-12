@@ -20,6 +20,7 @@ p.bjqs-caption{display:block;width:96%;margin:0;padding:2%;position:absolute;bot
 
 
 ul.bjqs-controls.v-centered li a{
+	visibility: hidden;
 	display:block;
 	padding: 10px;	
 	background:#fff;
