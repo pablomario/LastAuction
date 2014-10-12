@@ -175,15 +175,16 @@ section{
 	min-height: 400px;
 }
 
-section article{
-	padding: 30px 10px;
-}
-
-.productos h1{
+section h1{
 	padding: 5px;	
 	margin-bottom: 15px; 
 	border-bottom: 2px solid #2C393B;
 }
+
+section article{
+	padding: 30px 10px;
+}
+
 
 .productos article{
 	text-align: center;
