@@ -16,12 +16,16 @@
 
     <nav>
       <div class="centrado">
-        <img src="img/logo.png">
-        <ul>
-          <li><a href="" class="inicio"><i class="fa fa-home "></i>  Inicio</a></li>
-          <li><a href="" class="login"><i class="fa fa-user "></i>  LogIn</a>
-          <li><a href="" class="registro"><i class="fa fa-users "></i> Registro</a></li>
-          <li><a href="" class="contacto"><i class="fa fa-rocket "></i> Descubrir</a></li>
+        <a href="index.html"><img src="img/logo.png"></a>
+
+        <form action="buscar.php" method="get" accept-charset="utf-8">
+          <input type="text" name="busqueda" value="" placeholder="buscar por palabra clave">
+          <input type="submit" name="buscar" value="BUSCAR">          
+        </form>
+
+         <ul>          
+          <li><a href="index.html" class="login"><i class="fa fa-user "></i> indentifícate</a>
+          <li><a href="registro.html" class="registro"><i class="fa fa-users "></i> registro</a></li>          
         </ul>
         
       </div>      
@@ -104,6 +108,7 @@
            <article>
           <img src="productos/2.png" alt="prodcuto" />
         </article>
+        
       </div>      
     </section>  
 
