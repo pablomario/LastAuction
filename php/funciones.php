@@ -1,20 +1,14 @@
 <?php
-	
-	/**
-	 * [conexion description]
-	 * @return conexion retorna una conexion
-	 */
-	function conexion(){		
-		$conexion = new mysqli("127.0.0.1","root","root","lastauction");
-		if(mysqli_connect_errno()){
-			die("Error: " .mysqli_connect_errno());
-		}
-		return $conexion;
-	}
+	require_once('conexion.php');	
 
 	/**
 	 * FUNCIONES LOGIN Y REGISTRO DE USUARIOS
 	 */
+	
+	function prueba(){
+		hola();
+	}
+
 
 	/**
 	 * [identificarUsuario description]
@@ -25,12 +19,29 @@
 
 	}
 
-	/**
-	 * [registroUsuario description]
-	 * @return boolean retorna verdadeo si se ha registrado falso si fallo
-	 */
-	function registroUsuario(){
 
+	function registroUsuario($usuario, $email, $direccion, $password){
+		echo "LLEGO";
+		$conexion = conexion();
+		$sql = "select * from usuarios where email = '".$email."' ;";
+		echo $sql;
+		if($conexion->query($sql)){
+			if($conexion->affected_rows()==1){				
+				return false;
+			}else{
+				$password = md5($password);
+				$sql = "insert into usuarios('usuario','email','direccion','contrasena') values('".$usuario."','".$email."','".$direccion."','".$password."') ";
+				echo $sql;
+				if($conexion->query($sql)){
+					return true;
+				}else{
+					return false;
+				}
+			}
+		}else{
+			return false;
+		}
+		$conexion->close();
 	}
 
 

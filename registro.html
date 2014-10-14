@@ -31,17 +31,17 @@
       <div class="centrado">
         <h1>Registrarme Ahora - Es Gratis</h1>
         <article>         
-          <form>
-            <input type="text" name="usuario" id="usuario" placeholder="Nombre" />
-            <input type="text" name="email" id="email" placeholder="usuario@email.com" />
-            <input type="text" name="direccion" id="direccion" placeholder="C/Gran Via 5 4B" />
-            <input type="password" name="password1" id="password1" placeholder="contraseña" />
-            <input type="password" name="password2" id="password2" placeholder="Repita contraseña" />
+          <form action="registro.php" method="POST">
+            <input type="text" name="usuario" id="usuario" placeholder="Nombre" required />
+            <input type="text" name="email" id="email" placeholder="usuario@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+            <input type="text" name="direccion" id="direccion" placeholder="C/Gran Via 5 4B" required/>
+            <input type="password" name="password1" id="password1" placeholder="contraseña" required/>
+            <input type="password" name="password2" id="password2" placeholder="Repita contraseña" required/>
             <input type="submit" name="enviar" value="Registrarme Ahora" />
           </form>
         </article>  
 
-        <article>
+        <article class="condiciones">
           <p>Las presentes Condiciones Generales de Uso y Venta (en adelante, las ""Condiciones de Uso y Venta"") 
           regulan las condiciones de venta y el uso del sitio web (en adelante, el ""Sitio Web""), 
           titularidad de last auction, S.A. (en adelante, ""lastauction"") y las condiciones de 
