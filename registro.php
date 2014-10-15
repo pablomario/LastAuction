@@ -10,15 +10,13 @@
 	if( $password1 == $password2 ){
 		
 		if( registroUsuario($usuario, $email, $direccion, $password1, $password2) ){
-			return true;
-			echo "Bien";
+			echo "Se ha registrado correctamente";
+			header('Refresh: 5; url=index.html');			
 		}else{
-			return false;
-			echo "Mal INSERT";
+			echo "ERROR EMAIL YA EXISTENTE";			
 		}
 	}else{
-		return false;
-		echo "MAL PSSWORD";
+		echo "ERROR CONTRASEÑAS NO COINCIDEN";	
 	}
 
 
