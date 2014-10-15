@@ -1,12 +1,9 @@
 <?php
   session_start();
- if(!isset($_SESSION['id_usuario'])){
-    echo "hay sesion";
-    echo $_SESSION['nombre'];
- }else{
-  echo "NO HAY";
- }
 
+ if(isset($_SESSION['id_usuario'])){   
+
+ }
 
 
 ?>
@@ -23,6 +20,13 @@
     <link rel="stylesheet" href="estilo/bjqs.css">      
     <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="js/bjqs-1.3.js"></script>
+    <script src="js/funciones.js"></script>
+    
+    <?php 
+      if(isset($_SESSION['id_usuario'])){
+        echo "<script>prueba_notificacion('".$_SESSION['nombre']."')</script>";
+      }
+    ?>
 
   </head>
   <body>

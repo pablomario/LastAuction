@@ -17,22 +17,26 @@
 		$password = md5($password);
 		$sql = "select count(*), id, nombre, direccion from usuarios where email = '".$email."' and contrasena = '".$password."';";
 		
-		if($resultado = $conexion->query($sql)){				
+		if($resultado = $conexion->query($sql)){
+			echo "mal 1";				
 			if($row = $resultado->fetch_array()){
-				if($row[0]==1){						
+				echo "mal 2";
+				if($row[0]==1){
+					echo "mal 3";						
 					session_start();
 					$_SESSION['id_usuario'] = $row[1];
 					$_SESSION['nombre'] = $row[2];
 					$_SESSION['direccion'] = $row[3];
 					$_SESSION['email']=$email;
+					header('Location: productos.php');	
 				}else{
-					return false;					
+					header('Location: index.html');					
 				}				
 			}else{
-				return false;
+				header('Location: index.html');	
 			}
 		}else{
-			return false;
+			header('Location: index.html');	
 		}
 		$conexion->close();
 	}
