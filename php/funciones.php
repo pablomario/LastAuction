@@ -15,12 +15,16 @@
 	function identificarUsuario($email, $password){
 		$conexion = conexion();
 		$password = md5($password);
-		$sql = "select count(*) from usuarios where email = '".$email."' and contrasena = '".$password."';";
+		$sql = "select count(*), id, nombre, direccion from usuarios where email = '".$email."' and contrasena = '".$password."';";
 		
 		if($resultado = $conexion->query($sql)){				
 			if($row = $resultado->fetch_array()){
-				if($row[0]==1){					
-					return true;
+				if($row[0]==1){						
+					session_start();
+					$_SESSION['id_usuario'] = $row[1];
+					$_SESSION['nombre'] = $row[2];
+					$_SESSION['direccion'] = $row[3];
+					$_SESSION['email']=$email;
 				}else{
 					return false;					
 				}				

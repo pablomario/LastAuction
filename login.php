@@ -8,6 +8,7 @@
 	if( identificarUsuario($email, $password) ){		
 		header('Location: productos.php');			
 	}else{
+		echo "MAAAAAAL";
 		//header('Location: index.html');		
 	}
 

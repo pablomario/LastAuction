@@ -5,6 +5,7 @@
 	padding: 0px;
 	margin: 0px;	
 	font-family: 'Open Sans', sans-serif;
+	transition: .3s;
 }
 
 body{
@@ -34,40 +35,32 @@ p, h1, h2, h3{
 }
 
 nav{	
-	padding: 10px;
-	border-bottom: #5f5f5f;
-	background: #ededed;	
+	border-top: 5px solid #00c9ff; 
+	padding: 5px;
+	border-bottom: 1px solid #e1e1e1;
+	background: #F2F2F2;		
 }
 
 nav form{
 	display: inline-block;
 	float: right;
-	margin-top: 24px;
+	margin-top: -10px;
 }
 
 nav form input[type="text"]{
-	width: 400px;
-	padding: 6px;	
+	width: 250px;
+	padding: 10px;	
+	background: #F9F9F9;
+	border: 1px solid #e1e1e1;
 }
-
-nav form input[type="submit"]{
-		
-	padding: 4px 10px 4px 10px;	
-		
-}
-
-nav form input[type="submit"]:hover{
-	
-}
-
 
 nav ul {
 	float: right;	
-	margin-top: 30px;	
+	margin-top: 35px;	
 }
 
 nav ul li{
-	display: inline;
+	display: inline;	
 }
 
 nav li a{
@@ -78,26 +71,26 @@ nav li a{
 }
 
 nav li .inicio:hover{
-	border-bottom: 3px solid #019700;
+	border-bottom: 1px solid #019700;
 	color: #019700;
 }
 
 nav li .login:hover{
-	border-bottom: 3px solid #ff9700; 
+	border-bottom: 1px solid #ff9700; 
 	color: #ff9700; 
 }
 
 nav li .registro:hover{
-	border-bottom: 3px solid #ff0050; 
+	border-bottom: 1px solid #ff0050; 
 	color: #ff0050; 
 }
 
 nav li .contacto:hover{
-	border-bottom: 3px solid #00c9ff; 
+	border-bottom: 1px solid #00c9ff; 
 	color: #00c9ff; 
 }
 
-header{			
+header{		
 	min-height: 450px;
 	padding: 10px;	
 	display: block;
@@ -140,16 +133,15 @@ header aside form input{
 }
 
 header aside form input[type='submit']{
-	border: 1px solid #ff9700; 
-	color: #ff9700; 
+	background-color: #ff9700;
+	color: #fff; 
 	width: 95%;
 	padding: 5px;
-	background: inherit;
+	border: none;	
 }
 
 header aside form input[type='submit']:hover{
-	background-color: #ff9700;
-	color: #2C393B;
+	background-color: #D98200;
 	cursor: pointer;
 }
 
@@ -167,27 +159,27 @@ header aside ul li{
 }
 
 .casa:hover{
-	border-bottom: 2px solid #019700;
+	border-bottom: 1px solid #019700;
 	color: #019700;
 }
 
 .joyeria:hover{
-	border-bottom: 2px solid #ff9700;
+	border-bottom: 1px solid #ff9700;
 	color: #ff9700;
 }
 
 .moda:hover{
-	border-bottom: 2px solid #ff0050; 
+	border-bottom: 1px solid #ff0050; 
 	color: #ff0050; 
 }
 
 .deporte:hover{
-	border-bottom: 2px solid #00c9ff;
+	border-bottom: 1px solid #00c9ff;
 	color: #00c9ff;	
 }
 
 .electronica:hover{
-	border-bottom: 2px solid #F76D09;
+	border-bottom: 1px solid #F76D09;
 	color: #F76D09;
 }
 

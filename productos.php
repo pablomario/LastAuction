@@ -1,3 +1,16 @@
+<?php
+  session_start();
+ if(!isset($_SESSION['id_usuario'])){
+    echo "hay sesion";
+    echo $_SESSION['nombre'];
+ }else{
+  echo "NO HAY";
+ }
+
+
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,14 +31,15 @@
       <div class="centrado">
         <a href="index.html"><img src="img/logo.png"></a>
 
-        <form action="buscar.php" method="get" accept-charset="utf-8">
-          <input type="text" name="busqueda" value="" placeholder="buscar por palabra clave">
-          <input type="submit" name="buscar" value="BUSCAR">          
-        </form>
-
-        <ul>          
+       
+         <ul>          
           <li><a href="index.html" class="login"><i class="fa fa-user "></i> indentifícate</a>
-          <li><a href="registro.html" class="registro"><i class="fa fa-users "></i> registro</a></li>          
+          <li><a href="registro.html" class="registro"><i class="fa fa-users "></i> registro</a></li>   
+          <li>
+             <form action="buscar.php" method="get" accept-charset="utf-8">
+              <input type="text" name="busqueda" value="" placeholder="BUSQUEDA POR PALABRA...">                
+            </form>
+          </li>       
         </ul>
         
       </div>      
