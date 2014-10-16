@@ -34,15 +34,22 @@
     <nav>
       <div class="centrado">
         <a href="index.html"><img src="img/logo.png"></a>
-
        
-         <ul>          
-          <li><a href="index.html" class="login"><i class="fa fa-user "></i> indentifícate</a>
-          <li><a href="registro.html" class="registro"><i class="fa fa-users "></i> registro</a></li>   
-          <li>
-             <form action="buscar.php" method="get" accept-charset="utf-8">
-              <input type="text" name="busqueda" value="" placeholder="BUSQUEDA POR PALABRA...">                
-            </form>
+         <ul>
+         <?php
+            if(isset($_SESSION['id_usuario'])){
+              echo '<li><a href="interna/perfil.php" class="login"><i class="fa fa-user "></i> mi Perfil</a>';
+            }
+            else{          
+              echo '<li><a href="index.html" class="login"><i class="fa fa-user "></i> indentifícate</a>';
+              echo '<li><a href="registro.html" class="registro"><i class="fa fa-users "></i> registro</a></li>';
+            }
+         ?>          
+             
+        <li>
+          <form action="buscar.php" method="get" accept-charset="utf-8">
+            <input type="text" name="busqueda" value="" placeholder="BUSQUEDA POR PALABRA...">                
+          </form>
           </li>       
         </ul>
         
@@ -61,7 +68,7 @@
     <footer>
       <div class="centrado">
         <article>
-          <img src="img/favicon.png">
+          <img src="../img/favicon.png">
         </article>        
       </div>
     </footer>
