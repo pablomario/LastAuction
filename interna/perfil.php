@@ -3,6 +3,9 @@
   if(!isset($_SESSION['id_usuario'])){
       header('Location: ../productos.php');
   }
+  $fecha =  date("Y-m-d h:i");
+  $fecha=strtotime($fecha);
+  echo "La fecha es: " .$fecha;
 ?>
 
 

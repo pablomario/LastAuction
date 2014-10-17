@@ -235,6 +235,7 @@ section article form input{
 	border: 1px solid #2C393B;
 	width: 300px;
 	margin: 10px auto; 
+	/*background: url('../img/favicon.png') right no-repeat;*/
 }
 
 section article form textarea{

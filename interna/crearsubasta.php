@@ -44,7 +44,7 @@
     <section>
       <h1>Vender Producto</h1>
       <article>         
-        <form action="nuevoproducto.php" method="POST">
+        <form action="nuevoproducto.php" method="POST" ENCTYPE="multipart/form-data">
           Nombre de Producto:<br>
           <input type="text" name="titulo" placeholder="Titulo anuncio" required />
           Descripcion Producto: <br>
@@ -56,7 +56,7 @@
           Fecha finalizacion: <br>
           <input type="date" name="fechafin" placeholder="dia-mes-año" required/>
           Imagen prodcuto: <br>
-          <input type="file" name="foto">
+          <input type="file" name="archivo">
           <input type="submit" name="enviar" value="Publicar Producto" />
         </form>        
       </article>             
