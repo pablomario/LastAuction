@@ -1,110 +1,59 @@
 <?php
-  session_start();
-  require_once('php/funciones.php');
- if(isset($_SESSION['id_usuario'])){   
-
- }
-
-
+	session_start();
+	require_once('php/funciones.php');
 ?>
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="img/favicon.png" type="image/x-icon">
-    <title>last auction</title>
-    <link rel="stylesheet" type="text/css" href="estilo/estilo.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> 
+	<head>
+		<meta charset="utf-8">
+		<title>last auction</title>
+		<link rel="icon" href="img/favicon.png" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="css/estilo.css">
+		<link rel="stylesheet" type="text/css" href="css/estiloProductos.css">
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> 
+		<script src="js/funciones.js" type="text/javascript"></script>
+		<?php 
+			if(isset($_SESSION['id_usuario'])){
+				echo "<script>prueba_notificacion('".$_SESSION['nombre']."')</script>";
+			}
+		?>
+	</head>
+	<body>
+		
+		<nav>
+			<div class="centrado">
+				<img id="logotipo" src="img/logomini.png" alt="last auction">
+				<ul>
+					<a href="subastas.php"><li><i class="fa fa-rocket"></i> Descubrir</li></a>
+					<?php
+						if(isset($_SESSION['id_usuario'])){
+							echo '<a href="interna/perfil.php"><li><i class="fa fa-user "></i> '.$_SESSION['nombre'].'</li></a>';
+						}
+						else{
+							echo '<a href="index.html"><li><i class="fa fa-user "></i> indentifícate</li></a>';
+							echo '<a href="registro.html"><li><i class="fa fa-users "></i> registro</li></a>';
+						}
+					?>					
+				</ul>
+			</div>
+		</nav>
+		<header><!--NO BORRAR ESTA ETIQUETA --></header>
 
-    <link rel="stylesheet" href="estilo/bjqs.css">      
-    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script src="js/bjqs-1.3.js"></script>
-    <script src="js/funciones.js"></script>
-    
-    <?php 
-      if(isset($_SESSION['id_usuario'])){
-        echo "<script>prueba_notificacion('".$_SESSION['nombre']."')</script>";
-      }
-    ?>
+		<div class="centrado">
+			<aside>
+				<article>
+					
+				</article>
+			</aside>
 
-  </head>
-  <body>
+			<section>			
+				<?php listarSubastas(); ?> 
+			</section>			
+		</div>
 
-    <nav>
-      <div class="centrado">
-        <a href="index.html"><img src="img/logo.png"></a>
-       
-         <ul>
-             <li><a href="subastas.php" class="contacto"><i class="fa fa-rocket"></i> Descubrir</a></li>
-         <?php
-            if(isset($_SESSION['id_usuario'])){
-              echo '<li><a href="interna/perfil.php" class="login"><i class="fa fa-user "></i> mi Perfil</a>';
-            }
-            else{ 
-
-              echo '<li><a href="index.html" class="login"><i class="fa fa-user "></i> indentifícate</a>';
-              echo '<li><a href="registro.html" class="registro"><i class="fa fa-users "></i> registro</a></li>';
-            }
-         ?>          
-             
-        <li>
-          <form action="buscar.php" method="get" accept-charset="utf-8">
-            <input type="text" name="busqueda" value="" placeholder="BUSQUEDA POR PALABRA...">                
-          </form>
-          </li>       
-        </ul>
-        
-      </div>      
-    </nav>
-
-   <div class="centrado">  
-    <aside>
-      <article>
-    <?php
-      if(!isset($_SESSION['id_usuario'])){
-        echo '<h2><i class="fa fa-user "></i> Identifícate</h2>';        
-        echo '<form action="login.php" method="POST">';
-        echo '<input type="text" name="email" id="email" placeholder="email@email.com" />';
-        echo '<input type="password" name="password" id="password" placeholder="contraseña" />';
-        echo '<input type="submit" name="enviar" value="Iniciar Sesion" />';
-        echo ' <a href="">¿Todavia no tienes cuenta?</a>';
-        echo '</form>';
-      }      
-    ?>    
-      </article>
-      <article>
-         <h2><i class="fa fa-shopping-cart"></i> Categorías</h2>
-        <ul>
-           <a href=""><li class="casa">Casa y Jardin</li></a>
-           <a href=""><li class="joyeria">Joyeria y Relojes</li></a>               
-           <a href=""><li class="moda">Moda y Accesorios</li></a>
-           <a href=""><li class="deporte">Deporte y Salud</li></a>   
-           <a href=""><li class="electronica">Electronica y Tecnologia</li></a>         
-        </ul> 
-      </article>
-          
-    </aside>
-
-
-
-
-    
-    <section class="productos">            
-          <?php listarSubastas() ?>        
-    </section>  
-
-
-
-
-    </div>   
-    <footer>
-      <div class="centrado">
-        <article>
-          <img src="img/favicon.png">
-        </article>        
-      </div>
-    </footer>
-
-  </body>
+		<footer>
+			<a id="invertido" href="http://127.0.0.1/lastauction/index.html"><img src="img/favicon.png" alt=""></a>
+		</footer>
+	</body>
 </html>

@@ -83,18 +83,18 @@
 		$sql = "select * from productos where estado > 0 and fechafin >".$now.";";
 		if($resultado = $conexion->query($sql)){
 			while ($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
-				echo '<article class="articulo">';
+				echo '<article>';
 
 				$queryImagen = "select * from imagenes where producto = ".$row['id']." ";
 				if($resultadoImagen = $conexion->query($queryImagen)){
 					while($rowImagen = $resultadoImagen->fetch_array(MYSQLI_ASSOC)){
 						$urlImagen = substr($rowImagen['imagen'], 1);						
-						echo '<img src='.$urlImagen.' />';
+						echo '<a href="solo.php?='.$row['id'].'"><img src='.$urlImagen.' /></a>';
 					}
 				}			
 				echo '<div class="datosProducto">';
-				echo '<h3><a href="solo.php?='.$row['id'].'">'.$row['titulo'].'</a></h3>';
-				echo '<p class="descripcion">'.$row['descripcion'].'</p>';
+				echo '<a href="solo.php?='.$row['id'].'">'.$row['titulo'].'</a>';
+				echo '<p>'.$row['descripcion'].'</p>';
 
 				$queryUsuario = 'select nombre from usuarios where id='.$row['usuario'].';';
 				if($resultadoUsuario =  $conexion->query($queryUsuario)){
