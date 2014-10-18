@@ -28,7 +28,7 @@
 					$_SESSION['nombre'] = $row[2];
 					$_SESSION['direccion'] = $row[3];
 					$_SESSION['email']=$email;
-					header('Location: productos.php');	
+					header('Location: subastas.php');	
 				}else{
 					header('Location: index.html');					
 				}				
@@ -75,6 +75,43 @@
 	}
 
 
+
+
+	function listarSubastas(){
+		$conexion=conexion();		
+  		$now=strtotime(date("Y-m-d h:i"));
+		$sql = "select * from productos where estado > 0 and fechafin >".$now.";";
+		if($resultado = $conexion->query($sql)){
+			while ($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+				echo '<article class="articulo">';
+
+				$queryImagen = "select * from imagenes where producto = ".$row['id']." ";
+				if($resultadoImagen = $conexion->query($queryImagen)){
+					while($rowImagen = $resultadoImagen->fetch_array(MYSQLI_ASSOC)){
+						$urlImagen = substr($rowImagen['imagen'], 1);						
+						echo '<img src='.$urlImagen.' />';
+					}
+				}			
+				echo '<div class="datosProducto">';
+				echo '<h3><a href="solo.php?='.$row['id'].'">'.$row['titulo'].'</a></h3>';
+				echo '<p class="descripcion">'.$row['descripcion'].'</p>';
+
+				$queryUsuario = 'select nombre from usuarios where id='.$row['usuario'].';';
+				if($resultadoUsuario =  $conexion->query($queryUsuario)){
+					if($rowUsuario = $resultadoUsuario->fetch_array()){
+						echo '<p class="vendedor">'.$rowUsuario[0].'</p>';
+					}
+				}
+
+				//echo "<p>Vendedor:".$row['usuario']."</p>";
+				echo '<p><span>Puja: [ '.$row['preciominimo'].'€ ]</span></p>';
+				echo '</div>';
+				echo '</article>';
+			}
+		}
+
+		$conexion->close();
+	}
 
 
 

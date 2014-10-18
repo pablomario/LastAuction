@@ -115,26 +115,30 @@ header aside{
 	margin-bottom: 10px;
 }
 
-header aside h2{
+aside article{
+	margin-bottom: 10px;
+}
+
+aside h2{
 	text-align: right;
 	padding: 5px;	
 	margin-bottom: 15px; 
 	border-bottom: 2px solid #2C393B;
 }
 
-header aside a{
+aside a{
 	color: #00c9ff;	
 	text-decoration: none;
 }
 
-header aside form input{
+aside form input{
 	margin: 5px auto;
 	display: block;
 	padding: 5px;
 	width: 90%;
 }
 
-header aside form input[type='submit']{
+aside form input[type='submit']{
 	background-color: #ff9700;
 	color: #fff; 
 	width: 95%;
@@ -142,16 +146,16 @@ header aside form input[type='submit']{
 	border: none;	
 }
 
-header aside form input[type='submit']:hover{
+aside form input[type='submit']:hover{
 	background-color: #D98200;
 	cursor: pointer;
 }
 
-header aside ul a{
+aside ul a{
 	color: #2C393B;
 }
 
-header aside ul li{
+aside ul li{
 	list-style: none;
 	text-align: right;	
 	margin-bottom: 3px;
@@ -189,8 +193,18 @@ header aside ul li{
 
 /* SECTIONS */
 
+.centrado aside{
+	float: left;
+	border-top: 1px solid #fff;
+	width: 30%;
+	margin-top: 10px;
+}
+
+
 section{	
-	min-height: 400px;	
+	min-height: 400px;
+	width: 69%;
+	float: left;
 }
 
 section h1{
@@ -203,20 +217,42 @@ section article{
 	padding: 30px 10px;
 }
 
-
-.productos article{
-	text-align: center;
-	margin: 3px;
-	padding: 3px;
-	display: inline-block;	
-	height: 300px;
-	width: 180px;
+.productos article{	
+	margin: 10px;
+	padding: 10px;
+	display: block;	
+	border-bottom: 3px solid #DDDDDD;
+	min-height: 150px;
 }
 
-.productos article:hover{
-	box-shadow: 0px 0px 7px rgba(46,46,46,0.3);
-	cursor: pointer;	
+.productos article img{
+	height: 140px;
+	width: 140px;
+	float: left;
+	margin: 5px;
 }
+
+.productos article span{
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.productos .datosProducto{
+	float: left;
+	padding-left: 10px;
+}
+
+
+.productos article .vendedor{
+	text-transform: uppercase;
+	font-size: 12px;
+	color: #888888;	
+}
+
+.productos .datosProducto .descripcion{	
+	width: 490px;
+}
+
 
 .formularios{	
 	text-align: center;
@@ -260,5 +296,10 @@ footer{
 	background: #272623;
 	color: #fff;
 	text-align: center;
-	padding: 20px;
+	float: left;
+	width: 100%;	
+}
+
+footer img{
+	padding: 40px;
 }

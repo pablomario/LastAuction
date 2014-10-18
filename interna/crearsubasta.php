@@ -24,6 +24,7 @@
 
         <ul>
           <li><a href="perfil.php" class="login"><i class="fa fa-user "></i> Mi Perfil</a>
+          <li><a href="../subastas.php" class="contacto"><i class="fa fa-rocket"></i> Descubrir</a></li>
           <li><a href="index.html" class="login"><i class="fa fa-trophy"></i> Mis Subastas</a>
           <li><a href="registro.html" class="registro"><i class="fa fa-bullhorn"></i> Mis Pujas</a></li> 
 
@@ -51,10 +52,14 @@
           <textarea  name="descripcion" id="descripcion" placeholder="descripcion" required></textarea>
           Precio de Salida: <br>
           <input type="number" step="0.01" name="preciominimo" placeholder="precio minimo" required/>
-          Precio compra Directa: <br>
-          <input type="number" step="0.01" name="compradirecta" placeholder="Precio Compra directa" />
+          <!--Precio compra Directa: <br>
+          <input type="number" step="0.01" name="compradirecta" placeholder="Precio Compra directa" /> -->
           Fecha finalizacion: <br>
-          <input type="date" name="fechafin" placeholder="dia-mes-año" required/>
+          <select name="fechafin" required>
+            <option value="15">15 dias</option>
+            <option value="30">30 dias</option>
+            <option value="60">60 dias</option>           
+          </select><br>     
           Imagen prodcuto: <br>
           <input type="file" name="archivo">
           <input type="submit" name="enviar" value="Publicar Producto" />

@@ -3,9 +3,6 @@
   if(!isset($_SESSION['id_usuario'])){
       header('Location: ../productos.php');
   }
-  $fecha =  date("Y-m-d h:i");
-  $fecha=strtotime($fecha);
-  echo "La fecha es: " .$fecha;
 ?>
 
 
@@ -26,7 +23,8 @@
         <a href="index.html"><img src="../img/logo.png"></a>
 
         <ul>
-          <li><a href="index.html" class="login"><i class="fa fa-trophy"></i> Mis Subastas</a>
+          <li><a href="../subastas.php" class="contacto"><i class="fa fa-rocket"></i> Descubrir</a></li>
+          <li><a href="index.html" class="login"><i class="fa fa-trophy"></i> Mis Subastas</a></li>
           <li><a href="registro.html" class="registro"><i class="fa fa-bullhorn"></i> Mis Pujas</a></li> 
 
           <li>
