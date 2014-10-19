@@ -16,6 +16,11 @@ body{
 	width: 960px;	
 }
 
+h1, h2 ,h3 ,h4 ,h5 ,h6{
+	color: #373737;
+}
+
+
 nav{
 	float: left;
 	width: 100%;
@@ -44,15 +49,17 @@ nav ul li{
 nav ul a{
 	padding: 7px;	
 	color: #999;
-	margin-left: 20px;
-	border-bottom: 1px solid #eee;
+	margin-left: 20px;	
 	text-decoration: none;
 	text-transform: uppercase;	
 }
 
 nav ul a:hover{
-	color: #00c9ff;
-	border-bottom: 1px solid #00c9ff;	
+	color: #00c9ff;	
+}
+
+nav ul .salir:hover{
+	color: #F53C21;
 }
 
 header{	
@@ -80,6 +87,10 @@ section{
 	padding: 5px;
 	background: #fff;
 	box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.32);
+}
+
+section article:first-child{
+	margin-top: 48px;
 }
 
 footer{
