@@ -26,13 +26,15 @@
 			<div class="centrado">
 				<a href="index.php"><img id="logotipo" src="img/logomini.png" alt="last auction"></a>
 				<ul>
-					<a href="subastas.php"><li><i class="fa fa-rocket"></i> Descubrir</li></a>
+					
 					<?php
 						if(isset($_SESSION['id_usuario'])){
-							echo '<a href="interna/perfil.php"><li><i class="fa fa-user "></i> '.$_SESSION['nombre'].'</li></a>';
+							echo '<a href="crearsubasta.php"><li><i class="fa fa-rocket"></i> Nueva Subasta</li></a>';
+							echo '<a href="mispujas.php"><li><i class="fa fa-rocket"></i> Mis Pujas</li></a>';
 							echo '<a href="interna/salir.php" class="salir" ><li><i class="fa fa-close "></i> salir</li></a>';
 						}
-						else{							
+						else{
+							echo '<a href="subastas.php"><li><i class="fa fa-rocket"></i> Descubrir</li></a>';							
 							echo '<a href="registro.html"><li><i class="fa fa-users "></i> registro</li></a>';
 						}
 					?>					
@@ -42,22 +44,25 @@
 		<header><!--NO BORRAR ESTA ETIQUETA --></header>
 
 		<div class="centrado">
-			<aside>
-				<article>
-					<?php
-						if(isset($_SESSION['id_usuario'])){
-							// DATOS DE USUARIO
-						}else{							
-							echo '<h2>Identifícate</h2>';        
-							echo '<form action="login.php" method="POST">';
-								echo '<input type="text" name="email" id="email" placeholder="email@email.com" />';
-								echo '<input type="password" name="password" id="password" placeholder="contraseña" />';
-								echo '<input type="submit" name="enviar" value="Iniciar Sesion" />';
-								echo '<a href="">¿Todavia no tienes cuenta?</a>';
-							echo '</form>';
-						}
-					?>					
-				</article>
+			<aside>				
+				<?php
+					if(isset($_SESSION['id_usuario'])){
+						echo '<article class="perfil">';					
+							echo '<a href="interna/perfil.php"><img src="usuarios/yo.jpg"></a>';
+							echo '<p>'.$_SESSION['nombre'].'</p>';
+						echo '</article>';	
+					}else{	
+						echo '<article>';						
+						echo '<h2>Identifícate</h2>';        
+						echo '<form action="login.php" method="POST">';
+							echo '<input type="text" name="email" id="email" placeholder="email@email.com" />';
+							echo '<input type="password" name="password" id="password" placeholder="contraseña" />';
+							echo '<input type="submit" name="enviar" value="Iniciar Sesion" />';
+							echo '<a href="">¿Todavia no tienes cuenta?</a>';
+						echo '</form>';
+						echo '</article>';
+					}
+				?>
 
 				<article>
 					<h2>Categorías</h2>					
@@ -69,7 +74,8 @@
 				</article>
 			</aside>
 
-			<section>			
+			<section>	
+				<h2>Subastas Actuales</h2>		
 				<?php listarSubastas(); ?> 
 			</section>			
 		</div>

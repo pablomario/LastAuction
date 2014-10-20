@@ -34,13 +34,12 @@
 
 		<div class="centrado">
 			<aside>
-				<article>
-					<h2>Mi Perfil</h2>
+				<article class="perfil">					
+					<img src="../usuarios/default.jpg" height="140px" width="140px">
 					<?php
-			          echo "<p>".$_SESSION['nombre']."</p>";
-			          echo "<p> ".$_SESSION['direccion']."</p>";
-			          echo "<p>".$_SESSION['email']."</p>";                         
+			          echo "<p>".$_SESSION['nombre']."</p>";			                                  
 			        ?>
+			        <a href="editarperfil.php" class="boton">Editar Perfil</a>
 				</article>
 			</aside>
 

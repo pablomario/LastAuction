@@ -15,6 +15,12 @@ section article img{
 	margin: 5px;
 }
 
+section h2{
+	padding: 5px;
+	text-align: right;
+	border-bottom: 1px solid #373737;
+}
+
 section article .datosProducto{
 	float: left;
 	padding-left: 10px;	

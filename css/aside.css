@@ -4,12 +4,8 @@ aside article{
 	margin-bottom: 10px;
 }
 
-aside article p{
-	padding: 5px;
-}
-
 aside article h2{
-	padding: 5px;
+	padding-left: 5px;
 }
 
 aside article form{
@@ -35,6 +31,9 @@ aside article form a{
 aside article form a:hover{	
 	text-decoration: underline;	
 }
+
+
+/* ASIDE MENU */
 
 aside div.menuVertical{
 	padding: 5px 10px 5px 10px;	
@@ -73,3 +72,26 @@ aside div.deporte{
 aside div.electronica{
 	background: #f68122;
 }
+
+/* ASIDE FIN MENU */
+
+
+/* ASIDE INTERNA PERFIL */
+
+aside article.perfil{	
+	text-align: center;
+	background: url(../img/yum.jpg) center no-repeat;
+	background-size: cover;
+	padding: 10px 5px 10px 5px;
+	color: #fff;
+}
+
+aside article.perfil img{
+	height: 140px;
+	width: 140px;
+	border: 5px solid #fff;
+	border-radius: 50%;
+	text-align: center;
+}
+
+/* ASIDE FIN PERFIL */

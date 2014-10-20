@@ -1,30 +1,5 @@
 
-section article.aviso{
-	text-align: center;
-	padding: 20px;
-	margin: 5px;
-	background: #FFFDE6;
-	border: 1px solid #FDE1C4;
-}
 
-section article h2{
-	margin-bottom: 15px;
-	font-style: inherit;
-}
-
-section article .boton{
-	padding: 10px;
-	color: #fff;
-	text-decoration: none;
-	text-align: center;
-	text-transform: uppercase;
-	background: #01abe6;
-	border: none;
-}
-
-section article .boton:hover{
-	background: #21C7FE;
-}
 
 section article form{
 	padding: 10px;
@@ -35,3 +10,4 @@ section article form input, textarea, select{
 	margin-bottom:10px;
 	padding: 5px;
 }
+
