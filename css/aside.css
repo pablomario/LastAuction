@@ -4,6 +4,10 @@ aside article{
 	margin-bottom: 10px;
 }
 
+aside article p{
+	padding: 5px;
+}
+
 aside article h2{
 	padding: 5px;
 }

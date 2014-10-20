@@ -96,7 +96,7 @@
 		</div>
 
 		<footer>
-			<a id="invertido" href="http://127.0.0.1/lastauction/index.html"><img src="img/favicon.png" alt=""></a>
+			<a id="invertido" href="http://127.0.0.1/php/lastauction/"><img src="img/favicon.png" alt=""></a>
 		</footer>
 	</body>
 </html>

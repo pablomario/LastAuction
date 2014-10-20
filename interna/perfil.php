@@ -1,71 +1,59 @@
 <?php
   session_start();
+  require_once('../php/funciones.php');
   if(!isset($_SESSION['id_usuario'])){
-      header('Location: ../productos.php');
+      header('Location: ../subastas.php');
   }
 ?>
 
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="img/favicon.png" type="../image/x-icon">
-    <title>last auction</title>
-    <link rel="stylesheet" type="text/css" href="../estilo/estilo.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> 
-  
-  </head>
-  <body>
+	<head>
+		<meta charset="utf-8">
+		<title>last auction</title>
+		<link rel="icon" href="../img/favicon.png" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="../css/estilo.css">
+		<link rel="stylesheet" type="text/css" href="../css/aside.css">
+		<link rel="stylesheet" type="text/css" href="../css/interna.css">
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	</head>
+	<body>
+		
+		<nav>
+			<div class="centrado">
+				<a href="../index.php"><img id="logotipo" src="../img/logomini.png" alt="last auction"></a>
+				<ul>	
+					<a href="crearsubasta.php"><li><i class="fa fa-rocket"></i> Nueva Subasta</li></a>
+					<a href="mispujas.php"><li><i class="fa fa-rocket"></i> Mis Pujas</li></a>
+					<a href="../subastas.php"><li><i class="fa fa-rocket"></i> Descubrir</li></a>
+					<a href="salir.php" class="salir" ><li><i class="fa fa-close "></i> salir</li></a>						
+				</ul>
+			</div>
+		</nav>
+		<header><!--NO BORRAR ESTA ETIQUETA --></header>
 
-    <nav>
-      <div class="centrado">
-        <a href="index.html"><img src="../img/logo.png"></a>
+		<div class="centrado">
+			<aside>
+				<article>
+					<h2>Mi Perfil</h2>
+					<?php
+			          echo "<p>".$_SESSION['nombre']."</p>";
+			          echo "<p> ".$_SESSION['direccion']."</p>";
+			          echo "<p>".$_SESSION['email']."</p>";                         
+			        ?>
+				</article>
+			</aside>
 
-        <ul>
-          <li><a href="../subastas.php" class="contacto"><i class="fa fa-rocket"></i> Descubrir</a></li>
-          <li><a href="index.html" class="login"><i class="fa fa-trophy"></i> Mis Subastas</a></li>
-          <li><a href="registro.html" class="registro"><i class="fa fa-bullhorn"></i> Mis Pujas</a></li> 
+			<section>
+				<article class="aviso">
+					<h2>Todavia no has subastado nada:</h2>
+					<a href="crearsubasta.php" class="boton">Crear subasta Ahora</a>					
+				</article>
+			</section>			
+		</div>
 
-          <li>
-            <form action="buscar.php" method="get" accept-charset="utf-8">
-              <input type="text" name="busqueda" value="" placeholder="buscar por palabra clave">
-              <input type="submit" name="buscar" value="BUSCAR">          
-            </form>
-          </li>
-
-        </ul>
-           
-        
-    </div>      
-  </nav>
-   
-   <div class="centrado">
-  <section>
-      
-        <h1>Mi Perfil</h1>
-        <article>         
-         
-        <?php
-          echo "<h3>Nombre: ".$_SESSION['nombre']."</h3>";
-          echo "<h3>Direccion: ".$_SESSION['direccion']."</h3>";
-          echo "<h3>Email: ".$_SESSION['email']."</h3>";                         
-        ?>        
-        <a href="modificardatos.php">Cambiar mis datos</a>
-        </article>  
-
-        <h1>Vender Producto</h1>
-        <a href="crearsubasta.php">Vender Producto</a>
-           
-    </section> 
-    </div> 
-    <footer>
-      <div class="centrado">
-        <article>
-          <img src="../img/favicon.png">
-        </article>        
-      </div>
-    </footer>
-
-  </body>
+		<footer>
+			<a id="invertido" href="http://127.0.0.1/php/lastauction/"><img src="../img/favicon.png" alt=""></a>
+		</footer>
+	</body>
 </html>
