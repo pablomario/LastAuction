@@ -1,10 +1,14 @@
 <?php
 	require_once('conexion.php');	
 
-	/**
-	 * FUNCIONES LOGIN Y REGISTRO DE USUARIOS
-	 */
-	
+	define("URL_LOCAL","http://127.0.0.1/lastauction/");
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////                      LOGIN Y REGISTRO USUARIOS                             ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * [identificarUsuario description]
@@ -75,6 +79,32 @@
 	}
 
 
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////                      PERFIL DEL USUARIO ASIDE                              ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * [cuadroPerfil description]
+	 * @param  integer $usuario se recive el id de usuario para crear su cuadro personalizado
+	 * @return HTML          Crea estructura HTML con imagen de perfil y enlace
+	 */
+	function cuadroPerfil($usuario){
+		echo '<article class="perfil">';					
+		echo '<a href="'.URL_LOCAL.'interna/perfil.php"><img src="'.URL_LOCAL.'usuarios/default.jpg"></a>';
+		echo '<p><a href="'.URL_LOCAL.'interna/perfil.php">¡Hola <span>'.$usuario.'</span>!</a></p>';
+		echo '</article>';	
+	}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////                         FUNCIONES MISCELANEAS                              ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * [seg2tiempo description]
 	 * @param  integer $segundos entra segundo
@@ -87,9 +117,33 @@
 	    $tiempo=$tiempo-$dias*86400;
 	    $horas=floor($tiempo/3600);
 	    $tiempo=$tiempo-$horas*3600;	   
-	    return "<span>Finaliza en: [ ".$dias." d&iacute;as, ".$horas." horas ]</span>";
+	    return "<span>Finaliza en: ".$dias."d ".$horas."h</span>";
 	}
 
+
+	function menuLogeado(){
+		echo '<a href="'.URL_LOCAL.'index.php"><img id="logotipo" src="'.URL_LOCAL.'img/logomini.png" alt="last auction"></a>';
+		echo '<ul>';
+			echo '<a href="'.URL_LOCAL.'subastas.php"><li><i class="fa fa-heart-o"></i> Subastas</li></a>';						
+			echo '<a href="'.URL_LOCAL.'interna/crearsubasta.php"><li><i class="fa fa-plus-square-o"></i> Vender</li></a>';
+			echo '<a href="'.URL_LOCAL.'interna/notificaciones.php"><li><i class="fa fa-bell-o"></i> Notificaciones</li></a>';
+			echo '<a href="'.URL_LOCAL.'interna/salir.php" class="salir" ><li><i class="fa fa-power-off "></i> salir</li></a>';						
+		echo '</ul>';
+	}
+
+	function menuNoLogeado(){
+		echo '<a href="'.URL_LOCAL.'index.php"><img id="logotipo" src="img/logomini.png" alt="last auction"></a>';
+		echo '<ul>';
+			echo '<a href="'.URL_LOCAL.'subastas.php"><li><i class="fa fa-heart-o"></i> Subastas</li></a>';							
+			echo '<a href="'.URL_LOCAL.'registro.html"><li><i class="fa fa-users "></i> registro</li></a>';								
+		echo '</ul>';
+	}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////                     FUNCIONES VISUALIZACION PRODUCTOS                      ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * [listarSubastas description]
@@ -97,7 +151,7 @@
 	 */
 	function listarSubastas(){
 		$conexion=conexion();		
-  		$now=strtotime(date("Y-m-d h:i"));
+  		$now=strtotime(date("Y-m-d h:i"));  		
 		$sql = "select * from productos where estado > 0 and fechafin >".$now.";";
 		if($resultado = $conexion->query($sql)){
 			while ($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
@@ -129,29 +183,37 @@
 		$conexion->close();
 	}
 
-/**
- * [listarProducto description]
- * @param  int $idProducto numero identificacion de producto a listar
- * @return none             crea estructura HTML para poder pujar
- */
-	function listarProducto($idProducto){
+
+	/**
+	 * [listarProducto description]
+	 * @param  int $idProducto numero identificacion de producto a listar
+	 * @return none             crea estructura HTML para poder pujar
+	 */
+	function listarProducto($idProducto, $estado){
 		$conexion = conexion();
 		$sql ='select a.id, a.titulo, a.descripcion, a.fechafin, c.nombre,  b.imagen ';		 
 		$sql.='from productos a, imagenes b, usuarios c ';
 		$sql.='where a.id = b.producto and a.usuario = c.id and a.id ='.$idProducto.'';		
 		if($resultado = $conexion->query($sql) ){
 			if($row = $resultado->fetch_array()){
-				echo '<article>';
-				echo '<h2>'.$row[1].'</h2>';
+				echo '<article class="solo">';				
 				$urlImagen = substr($row[5], 1);
 				echo '<img src='.$urlImagen.'>';
-				echo '<p>'.$row[2].'</p>';				
-				echo seg2tiempo($row[3]); 
-				echo '<p> Vendedor: '.$row[4].'</p>';				
-				echo '<form action="pujar.php" method="POST">';
-				echo '<input type="number" min="100" value="100">';
-				echo '<input type="submit" value="PUJAR" class="boton">';
-				echo '</form>';
+
+				echo '<div class="datosBasicos"> ';
+				echo '<h3>'.$row[1].'</h3>';							
+				echo '<p>'.seg2tiempo($row[3]).'</p>'; 
+				echo '<p class="vendedor"> Vendedor: '.$row[4].'</p>';
+				echo '</div>';	
+				if($estado){
+					echo '<form action="pujar.php" method="POST">';
+					echo '<input type="number" min="100" value="100">';
+					echo '<input type="submit" value=" HACER OFERTA " class="boton">';
+					echo '</form>';
+				}else{
+					echo '<div class="aviso"><h2>Inicia sesion para realziar una oferta</h2></div>';
+				}				
+				echo '<p class="descripcion">'.$row[2].'</p>';	
 				echo '</article>';
 			}else{
 				echo "NOOOOO";
@@ -159,8 +221,6 @@
 		}else{
 			echo "noooooo x 2";
 		}
-
-
 		$conexion->close();
 	}
 

@@ -26,6 +26,9 @@ body{
 
 .aviso h2{	
 	font-style: inherit;
+	background: none;
+	color: #373737;
+	text-align: center;
 }
 
 .boton{

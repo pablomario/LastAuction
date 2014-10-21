@@ -23,22 +23,11 @@
 	<body>
 		
 		<nav>
-			<div class="centrado">
-				<a href="index.php"><img id="logotipo" src="img/logomini.png" alt="last auction"></a>
-				<ul>
-					
-					<?php
-						if(isset($_SESSION['id_usuario'])){
-							echo '<a href="crearsubasta.php"><li><i class="fa fa-rocket"></i> Nueva Subasta</li></a>';
-							echo '<a href="mispujas.php"><li><i class="fa fa-rocket"></i> Mis Pujas</li></a>';
-							echo '<a href="interna/salir.php" class="salir" ><li><i class="fa fa-close "></i> salir</li></a>';
-						}
-						else{
-							echo '<a href="subastas.php"><li><i class="fa fa-rocket"></i> Descubrir</li></a>';							
-							echo '<a href="registro.html"><li><i class="fa fa-users "></i> registro</li></a>';
-						}
-					?>					
-				</ul>
+			<div class="centrado">				
+				<?php
+					if(isset($_SESSION['id_usuario'])) menuLogeado();					
+					else menuNoLogeado();
+				?>				
 			</div>
 		</nav>
 		<header><!--NO BORRAR ESTA ETIQUETA --></header>
@@ -47,12 +36,9 @@
 			<aside>				
 				<?php
 					if(isset($_SESSION['id_usuario'])){
-						echo '<article class="perfil">';					
-							echo '<a href="interna/perfil.php"><img src="usuarios/yo.jpg"></a>';
-							echo '<p>'.$_SESSION['nombre'].'</p>';
-						echo '</article>';	
+						cuadroPerfil($_SESSION['nombre']);
 					}else{	
-						echo '<article>';						
+						echo '<article class="perfil">';						
 						echo '<h2>Identifícate</h2>';        
 						echo '<form action="login.php" method="POST">';
 							echo '<input type="text" name="email" id="email" placeholder="email@email.com" />';

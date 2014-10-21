@@ -20,27 +20,20 @@
 	<body>
 		
 		<nav>
-			<div class="centrado">
-				<a href="../index.php"><img id="logotipo" src="../img/logomini.png" alt="last auction"></a>
-				<ul>	
-					<a href="crearsubasta.php"><li><i class="fa fa-rocket"></i> Nueva Subasta</li></a>
-					<a href="mispujas.php"><li><i class="fa fa-rocket"></i> Mis Pujas</li></a>
-					<a href="../subastas.php"><li><i class="fa fa-rocket"></i> Descubrir</li></a>
-					<a href="salir.php" class="salir" ><li><i class="fa fa-close "></i> salir</li></a>						
-				</ul>
+			<div class="centrado">				
+				<?php
+					if(isset($_SESSION['id_usuario'])) menuLogeado();					
+					else menuNoLogeado();
+				?>				
 			</div>
 		</nav>
 		<header><!--NO BORRAR ESTA ETIQUETA --></header>
 
 		<div class="centrado">
-			<aside>
-				<article class="perfil">					
-					<img src="../usuarios/default.jpg" height="140px" width="140px">
-					<?php
-			          echo "<p>".$_SESSION['nombre']."</p>";			                                  
-			        ?>
-			        <a href="editarperfil.php" class="boton">Editar Perfil</a>
-				</article>
+			<aside>				
+				<?php
+		          cuadroPerfil($_SESSION['nombre']);			                                  
+		        ?>			
 			</aside>
 
 			<section>

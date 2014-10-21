@@ -12,34 +12,17 @@
 		<link rel="icon" href="img/favicon.png" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="css/estilo.css">
 		<link rel="stylesheet" type="text/css" href="css/aside.css">
-		<link rel="stylesheet" type="text/css" href="css/estiloProductos.css">
-		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> 
-		<script src="js/funciones.js" type="text/javascript"></script>
-		<?php 
-			if(isset($_SESSION['id_usuario'])){
-				echo "<script>prueba_notificacion('".$_SESSION['nombre']."')</script>";
-			}
-		?>
+		<link rel="stylesheet" type="text/css" href="css/puja.css">
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> 		
 	</head>
 	<body>
 		
 		<nav>
-			<div class="centrado">
-				<a href="subastas.php"><img id="logotipo" src="img/logomini.png" alt="last auction"></a>
-				<ul>
-					<a href="subastas.php"><li><i class="fa fa-legal"></i> Subastas</li></a>
-					<?php
-
-						if(isset($_SESSION['id_usuario'])){
-							echo '<a href="crearsubasta.php"><li><i class="fa fa-rocket"></i> Nueva Subasta</li></a>';
-							echo '<a href="mispujas.php"><li><i class="fa fa-rocket"></i> Mis Pujas</li></a>';
-							echo '<a href="interna/salir.php" class="salir" ><li><i class="fa fa-close "></i> salir</li></a>';
-						}
-						else{								
-							echo '<a href="registro.html"><li><i class="fa fa-users "></i> registro</li></a>';
-						}
-					?>					
-				</ul>
+			<div class="centrado">				
+				<?php
+					if(isset($_SESSION['id_usuario'])) menuLogeado();					
+					else menuNoLogeado();
+				?>				
 			</div>
 		</nav>
 		<header><!--NO BORRAR ESTA ETIQUETA --></header>
@@ -48,10 +31,7 @@
 			<aside>				
 				<?php
 					if(isset($_SESSION['id_usuario'])){
-						echo '<article class="perfil">';					
-							echo '<a href="interna/perfil.php"><img src="usuarios/yo.jpg"></a>';
-							echo '<p>'.$_SESSION['nombre'].'</p>';
-						echo '</article>';	
+						cuadroPerfil($_SESSION['nombre']);
 					}else{	
 						echo '<article>';						
 						echo '<h2>Identifícate</h2>';        
@@ -76,12 +56,14 @@
 			</aside>
 
 			<section>	
-				<h2>Puja</h2>		
+				<h2>Pujar Ahora</h2>		
 				<?php 
-					listarProducto($idProducto); 
-				?>
-
-			
+					if(isset($_SESSION['id_usuario'])){
+						listarProducto($idProducto, true); 
+					}else{
+						listarProducto($idProducto,false); 
+					}					
+				?>			
 			</section>			
 		</div>
 

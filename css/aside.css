@@ -94,4 +94,18 @@ aside article.perfil img{
 	text-align: center;
 }
 
+aside article.perfil p a{
+	color: #fff;
+	text-decoration: none;
+}
+
+aside article.perfil p a:hover{
+	color: #fff;
+	text-decoration: underline;
+}
+
+aside article.perfil p a span{
+	font-weight: bolder;
+}
+
 /* ASIDE FIN PERFIL */

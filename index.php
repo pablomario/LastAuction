@@ -20,20 +20,11 @@
 	<body>
 		
 		<nav>
-			<div class="centrado">
-				<a href="index.php"><img id="logotipo" src="img/logomini.png" alt="last auction"></a>
-				<ul>	
-					<a href="subastas.php"><li><i class="fa fa-rocket"></i> Descubrir</li></a>
-					<?php
-						if(isset($_SESSION['id_usuario'])){
-							echo '<a href="interna/perfil.php"><li><i class="fa fa-user "></i> '.$_SESSION['nombre'].'</li></a>';
-							echo '<a href="interna/salir.php" class="salir" ><li><i class="fa fa-close "></i> salir</li></a>';
-						}
-						else{							
-							echo '<a href="registro.html"><li><i class="fa fa-users "></i> registro</li></a>';
-						}
-					?>	
-				</ul>
+			<div class="centrado">				
+				<?php
+					if(isset($_SESSION['id_usuario'])) menuLogeado();					
+					else menuNoLogeado();
+				?>				
 			</div>
 		</nav>
 		<header><!--NO BORRAR ESTA ETIQUETA --></header>
@@ -43,7 +34,7 @@
 				<article>
 					<?php
 						if(isset($_SESSION['id_usuario'])){
-							// DATOS DE USUARIO
+							cuadroPerfil($_SESSION['nombre']);
 						}else{							
 							echo '<h2>Identifícate</h2>';        
 							echo '<form action="login.php" method="POST">';

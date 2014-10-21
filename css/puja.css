@@ -1,0 +1,53 @@
+
+section h2{
+	padding: 5px 15px 5px 0px;
+	text-align: right;
+	background: #01abe6;
+	color: #fff;
+}
+
+article.solo{
+	margin-top: 20px;
+	padding: 10px;
+}
+
+article.solo img{
+	float: left;
+	height: 200px;
+	width: 200px;
+	margin: 10px;
+}
+
+article.solo .datosBasicos{
+	margin: 10px;
+}
+
+article.solo h3{
+	text-align: right;
+	padding: 10px;
+	margin: 5px;
+	border-bottom: 1px solid #888;
+}
+
+article.solo .datosBasicos .vendedor{
+	color: #888;
+}
+
+
+article.solo form{	
+	text-align: center;
+}
+
+article.solo form input{
+	padding: 10px;
+	margin-left: 15px;
+}
+
+article.solo .descripcion{
+	float: left;
+	padding: 10px;
+	width: 95%;
+	margin: 0 auto;	
+	display: block;
+	clear: both;
+}
