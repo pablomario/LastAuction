@@ -1,7 +1,7 @@
 <?php
 	require_once('conexion.php');	
 
-	define("URL_LOCAL","http://127.0.0.1/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
 
 
 
@@ -191,7 +191,7 @@
 	 */
 	function listarProducto($idProducto, $estado){
 		$conexion = conexion();
-		$sql ='select a.id, a.titulo, a.descripcion, a.fechafin, c.nombre,  b.imagen ';		 
+		$sql ='select a.id, a.titulo, a.descripcion, a.fechafin, c.nombre,  b.imagen , a.preciominimo ';		 
 		$sql.='from productos a, imagenes b, usuarios c ';
 		$sql.='where a.id = b.producto and a.usuario = c.id and a.id ='.$idProducto.'';		
 		if($resultado = $conexion->query($sql) ){
@@ -207,7 +207,16 @@
 				echo '</div>';	
 				if($estado){
 					echo '<form action="pujar.php" method="POST">';
-					echo '<input type="number" min="100" value="100">';
+					$sqlPrecio = 'select MAX(cantidad) from pujas where producto ='.$idProducto.';';
+					if($resultadoPrecio = $conexion->query($sqlPrecio)){
+						if($rowPrecio = $resultadoPrecio->fetch_array()){
+							if($rowPrecio[0]!=null){
+								echo '<input type="number" min="'.($rowPrecio[0]+1).'" value="'.$rowPrecio[0].'">';
+							}else{
+								echo '<input type="number" min="'.($row[6]+1).'" value="'.$row[6].'">';
+							}
+						}						
+					}					
 					echo '<input type="submit" value=" HACER OFERTA " class="boton">';
 					echo '</form>';
 				}else{
