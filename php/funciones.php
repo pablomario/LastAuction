@@ -147,12 +147,51 @@
 
 	/**
 	 * [listarSubastas description]
-	 * @return none crea estructura html de cada producto
+	 * @param  entero $idUsuario identificador de usuario
+	 * @return none            crea estructura HTML
+	 */
+	function listarSubastasU($idUsuario){
+		$conexion=conexion();		
+  		$now=strtotime(date("Y-m-d h:i"));  		
+		$sql = 'select * from productos where estado > 0 and fechafin >'.$now.' and usuario != '.$idUsuario.' ;';
+		if($resultado = $conexion->query($sql)){
+			while ($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+				echo '<article>';
+
+				$queryImagen = "select * from imagenes where producto = ".$row['id']." ";
+				if($resultadoImagen = $conexion->query($queryImagen)){
+					while($rowImagen = $resultadoImagen->fetch_array(MYSQLI_ASSOC)){
+						$urlImagen = substr($rowImagen['imagen'], 1);						
+						echo '<a href="solo.php?p='.$row['id'].'"><img src='.$urlImagen.' /></a>';
+					}
+				}			
+				echo '<div class="datosProducto">';
+				echo '<a href="solo.php?p='.$row['id'].'">'.$row['titulo'].'</a>';
+				echo '<p>'.$row['descripcion'].'</p>';
+
+				$queryUsuario = 'select nombre from usuarios where id='.$row['usuario'].';';
+				if($resultadoUsuario =  $conexion->query($queryUsuario)){
+					if($rowUsuario = $resultadoUsuario->fetch_array()){
+						echo '<p class="vendedor">'.$rowUsuario[0].'</p>';
+					}
+				}
+				//echo "<p>Vendedor:".$row['usuario']."</p>";
+				echo '<p><span>Puja: [ '.$row['preciominimo'].'€ ]</span></p>';
+				echo '</div>';
+				echo '</article>';
+			}
+		}
+		$conexion->close();
+	}
+
+	/**
+	 * [listarSubastas description]	 *
+	 * @return [type]            [description]
 	 */
 	function listarSubastas(){
 		$conexion=conexion();		
   		$now=strtotime(date("Y-m-d h:i"));  		
-		$sql = "select * from productos where estado > 0 and fechafin >".$now.";";
+		$sql = 'select * from productos where estado > 0 and fechafin >'.$now.';';
 		if($resultado = $conexion->query($sql)){
 			while ($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
 				echo '<article>';
@@ -184,6 +223,9 @@
 	}
 
 
+
+
+
 	/**
 	 * [listarProducto description]
 	 * @param  int $idProducto numero identificacion de producto a listar
@@ -206,14 +248,15 @@
 				echo '<p class="vendedor"> Vendedor: '.$row[4].'</p>';
 				echo '</div>';	
 				if($estado){
-					echo '<form action="pujar.php" method="POST">';
+					echo '<form action="interna/pujar.php" method="POST">';
+					echo '<input type="hidden" name="producto" value="'.$idProducto.'" > ';
 					$sqlPrecio = 'select MAX(cantidad) from pujas where producto ='.$idProducto.';';
 					if($resultadoPrecio = $conexion->query($sqlPrecio)){
 						if($rowPrecio = $resultadoPrecio->fetch_array()){
 							if($rowPrecio[0]!=null){
-								echo '<input type="number" min="'.($rowPrecio[0]+1).'" value="'.$rowPrecio[0].'">';
+								echo '<input name="puja" type="number" min="'.($rowPrecio[0]+1).'" value="'.$rowPrecio[0].'">';
 							}else{
-								echo '<input type="number" min="'.($row[6]+1).'" value="'.$row[6].'">';
+								echo '<input name="puja" type="number" min="'.($row[6]+1).'" value="'.$row[6].'">';
 							}
 						}						
 					}					

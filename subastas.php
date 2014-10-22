@@ -62,7 +62,13 @@
 
 			<section>	
 				<h2>Subastas Actuales</h2>		
-				<?php listarSubastas(); ?> 
+				<?php 
+					if(isset($_SESSION['id_usuario'])){
+						listarSubastasU( $_SESSION['id_usuario'] );
+					}else{	
+						listarSubastas();
+					}  
+				?> 
 			</section>			
 		</div>
 
