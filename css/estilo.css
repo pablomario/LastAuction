@@ -122,8 +122,21 @@ section{
 	box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.32);
 }
 
-section article:first-child{
-	margin-top: 48px;
+section article form.datos input{
+	padding: 5px;
+	margin: 5px;
+	width: 90%;
+	display: block;
+}
+
+section article form.datos input[type="submit"]{
+	width: 92%;
+}
+
+section article form.datos h2{
+	text-align: right;
+	border-bottom: 1px solid #373737;
+	margin-bottom: 10px;
 }
 
 footer{

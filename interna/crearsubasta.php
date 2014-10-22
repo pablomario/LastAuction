@@ -37,9 +37,9 @@
 			</aside>
 
 			<section>
-				<article>   
-					<h2>Crear Subasta</h2>      
-					<form action="nuevoproducto.php" method="POST" ENCTYPE="multipart/form-data">
+				<article>   					    
+					<form action="nuevoproducto.php" method="POST" ENCTYPE="multipart/form-data" class="datos">
+						<h2>Crear Subasta</h2>  
 						Nombre de Producto:<br>
 						<input type="text" name="titulo" placeholder="Titulo anuncio" required />
 						Descripcion Producto: <br>

@@ -1,7 +1,7 @@
 <?php
 	require_once('conexion.php');	
 
-	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/lastauction/");
 
 
 
@@ -135,7 +135,7 @@
 		echo '<a href="'.URL_LOCAL.'index.php"><img id="logotipo" src="img/logomini.png" alt="last auction"></a>';
 		echo '<ul>';
 			echo '<a href="'.URL_LOCAL.'subastas.php"><li><i class="fa fa-heart-o"></i> Subastas</li></a>';							
-			echo '<a href="'.URL_LOCAL.'registro.html"><li><i class="fa fa-users "></i> registro</li></a>';								
+			echo '<a href="'.URL_LOCAL.'registro.php"><li><i class="fa fa-users "></i> registro</li></a>';								
 		echo '</ul>';
 	}
 
@@ -175,8 +175,16 @@
 						echo '<p class="vendedor">'.$rowUsuario[0].'</p>';
 					}
 				}
-				//echo "<p>Vendedor:".$row['usuario']."</p>";
-				echo '<p><span>Puja: [ '.$row['preciominimo'].'€ ]</span></p>';
+				$sqlPrecio = 'select MAX(puja) from pujas where producto ='.$row['id'].';';
+				if($resultadoPrecio = $conexion->query($sqlPrecio)){
+					if($rowPrecio = $resultadoPrecio->fetch_array()){
+						if($rowPrecio[0]!=null){
+							echo '<p><span>Puja: [ '.$rowPrecio[0].'€ ]</span></p>';
+						}else{							
+							echo '<p><span>Puja: [ '.$row['preciominimo'].'€ ]</span></p>';
+						}
+					}						
+				}
 				echo '</div>';
 				echo '</article>';
 			}
@@ -212,17 +220,23 @@
 					if($rowUsuario = $resultadoUsuario->fetch_array()){
 						echo '<p class="vendedor">'.$rowUsuario[0].'</p>';
 					}
-				}
-				//echo "<p>Vendedor:".$row['usuario']."</p>";
-				echo '<p><span>Puja: [ '.$row['preciominimo'].'€ ]</span></p>';
+				}				
+				$sqlPrecio = 'select MAX(puja) from pujas where producto ='.$row['id'].';';
+				if($resultadoPrecio = $conexion->query($sqlPrecio)){
+					if($rowPrecio = $resultadoPrecio->fetch_array()){
+						if($rowPrecio[0]!=null){
+							echo '<p><span>Puja: [ '.$rowPrecio[0].'€ ]</span></p>';
+						}else{							
+							echo '<p><span>Puja: [ '.$row['preciominimo'].'€ ]</span></p>';
+						}
+					}						
+				}				
 				echo '</div>';
 				echo '</article>';
 			}
 		}
 		$conexion->close();
 	}
-
-
 
 
 
@@ -250,10 +264,10 @@
 				if($estado){
 					echo '<form action="interna/pujar.php" method="POST">';
 					echo '<input type="hidden" name="producto" value="'.$idProducto.'" > ';
-					$sqlPrecio = 'select MAX(cantidad) from pujas where producto ='.$idProducto.';';
+					$sqlPrecio = 'select MAX(puja) from pujas where producto ='.$idProducto.';';
 					if($resultadoPrecio = $conexion->query($sqlPrecio)){
 						if($rowPrecio = $resultadoPrecio->fetch_array()){
-							if($rowPrecio[0]!=null){
+							if($rowPrecio[0]!=null){								
 								echo '<input name="puja" type="number" min="'.($rowPrecio[0]+1).'" value="'.$rowPrecio[0].'">';
 							}else{
 								echo '<input name="puja" type="number" min="'.($row[6]+1).'" value="'.$row[6].'">';
@@ -275,6 +289,34 @@
 		}
 		$conexion->close();
 	}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////                          FUNCIONES PARA PUJAS                              ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+	function pujar($producto, $puja, $usuario){
+		$conexion = conexion();
+		$sql = 'insert into pujas(producto,puja,usuario) values('.$producto.','.$puja.','.$usuario.') ';
+
+		if($resultado = $conexion->query($sql)){
+			echo "PUJA ACEPTADA";
+		}else{
+			echo "ERROR";
+		}
+
+
+
+		$conexion->close();
+	}
+
+
+
+
+
+
+
+
 
 
 
