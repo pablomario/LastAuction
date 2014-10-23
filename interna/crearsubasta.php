@@ -41,11 +41,19 @@
 					<form action="nuevoproducto.php" method="POST" ENCTYPE="multipart/form-data" class="datos">
 						<h2>Crear Subasta</h2>  
 						Nombre de Producto:<br>
-						<input type="text" name="titulo" placeholder="Titulo anuncio" required />
+						<input type="text" name="titulo" placeholder="Titulo anuncio" required /> <br>
 						Descripcion Producto: <br>
-						<textarea  name="descripcion" id="descripcion" placeholder="descripcion" required></textarea>
+						<textarea  name="descripcion" id="descripcion" placeholder="descripcion" required></textarea> <br>
+						Categoria: <br>
+						<select name="categoria" required>
+							<option value="1">Casa y Jardin</option>
+							<option value="2">Joyeria y Relojes</option>
+							<option value="3">Moda y Accesorios</option>
+							<option value="4">Deporte y Salud</option> 
+							<option value="5">Electronica y Salud</option>            
+						</select><br>  
 						Precio de Salida: <br>
-						<input type="number" step="0.01" name="preciominimo" placeholder="precio minimo" required/>
+						<input type="number" step="0.01" name="preciominimo" placeholder="precio minimo" required/> <br>
 						<!--Precio compra Directa: <br>
 						<input type="number" step="0.01" name="compradirecta" placeholder="Precio Compra directa" /> -->
 						Fecha finalizacion: <br>
@@ -55,7 +63,7 @@
 							<option value="60">60 dias</option>           
 						</select><br>     
 						Imagen prodcuto: <br>
-						<input type="file" name="archivo" >
+						<input type="file" name="archivo" > <br>
 						<input class="boton" type="submit" name="enviar" value="Publicar Producto" />
 					</form>        
 				</article> 

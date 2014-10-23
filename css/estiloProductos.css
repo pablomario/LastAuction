@@ -1,11 +1,21 @@
 
 
+section h2{
+	background: url('../img/larga.jpg') right center;
+	padding: 5px 15px 5px 0px;
+	text-align: right;	
+	color: #fff;
+}
+
 section article{
-	padding-bottom: 10px;
+	float: right;
+	padding: 5px;
 	margin-top: 10px;
-	width: 100%;
+	width: 97%;
 	min-height: 150px;
-	border-bottom: 2px solid #E0E0E0;
+	border-top:1px solid #E0E0E0;
+	border-right:1px solid #E0E0E0;
+	border-bottom:1px solid #E0E0E0;
 }
 
 section article img{
@@ -15,18 +25,11 @@ section article img{
 	margin: 5px;
 }
 
-section h2{
-	background: url('../img/larga.jpg') right center;
-	padding: 5px 15px 5px 0px;
-	text-align: right;
-	
-	color: #fff;
-}
-
 section article .datosProducto{
 	float: left;
-	padding-left: 10px;	
-	width: 490px;
+	margin: 5px;
+	padding: 5px;	
+	width: 460px;
 }
 
 section article .datosProducto a{
@@ -48,4 +51,24 @@ section article .datosProducto span{
 
 section article .datosProducto .vendedor{
 	color: #888888;
+}
+
+section article.casa{
+	border-left: 4px solid #8ec63e;
+}
+
+section article.joyeria{
+	border-left: 4px solid #7c51a2;
+}
+
+section article.moda{
+	border-left: 4px solid #d51a79;
+}
+
+section article.deporte{
+	border-left: 4px solid #01abe6;
+}
+
+section article.electronica{
+	border-left: 4px solid #f68122;
 }

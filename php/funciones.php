@@ -156,8 +156,26 @@
 		$sql = 'select * from productos where estado > 0 and fechafin >'.$now.' and usuario != '.$idUsuario.' ;';
 		if($resultado = $conexion->query($sql)){
 			while ($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
-				echo '<article>';
-
+				switch ($row['categoria']) {
+					case 1:
+						echo '<article class="casa">';
+						break;
+					case 2:
+						echo '<article class="joyeria">';
+						break;
+					case 3:
+						echo '<article class="moda">';
+						break;
+					case 4:
+						echo '<article class="deporte">';
+						break;
+					case 5:
+						echo '<article class="electronica">';
+						break;
+					default:
+						echo '<article>';
+						break;
+				}
 				$queryImagen = "select * from imagenes where producto = ".$row['id']." ";
 				if($resultadoImagen = $conexion->query($queryImagen)){
 					while($rowImagen = $resultadoImagen->fetch_array(MYSQLI_ASSOC)){
@@ -202,8 +220,26 @@
 		$sql = 'select * from productos where estado > 0 and fechafin >'.$now.';';
 		if($resultado = $conexion->query($sql)){
 			while ($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
-				echo '<article>';
-
+				switch ($row['categoria']) {
+					case 1:
+						echo '<article class="casa">';
+						break;
+					case 2:
+						echo '<article class="joyeria">';
+						break;
+					case 3:
+						echo '<article class="moda">';
+						break;
+					case 4:
+						echo '<article class="deporte">';
+						break;
+					case 5:
+						echo '<article class="electronica">';
+						break;
+					default:
+						echo '<article>';
+						break;
+				}
 				$queryImagen = "select * from imagenes where producto = ".$row['id']." ";
 				if($resultadoImagen = $conexion->query($queryImagen)){
 					while($rowImagen = $resultadoImagen->fetch_array(MYSQLI_ASSOC)){
