@@ -1,7 +1,7 @@
 <?php
 	require_once('conexion.php');	
 
-	define("URL_LOCAL","http://127.0.0.1/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
 
 
 
@@ -328,9 +328,53 @@
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
+/////////                                 DISPARADOR                                 ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+// 0 - Subasta terminada
+// 1 - Subasta Activa -> AL CREAR LA SUBASTA
+// 2 - Subata vendida	
+
+
+	function limpieza(){
+		$conexion = conexion();
+		echo "LIMPIEZA! <br>";
+		$now=strtotime(date("Y-m-d h:i"));  
+
+		// SOLO SI TIENE PUJA (ESTA VENDIDO CAMBIAR A ESTADO 2)
+		$sql = 'select a.id , a.estado, c.nombre, max(b.puja) as pujaMaxima  from productos a, pujas b, usuarios c
+where a.id = b.producto and c.id = b.usuario and b.puja > 0 and a.fechafin >'.$now.' group by a.id';
+		if($resultado = $conexion->query($sql)){
+			while($row=$resultado->fetch_array(MYSQLI_ASSOC)){
+				echo 'ID: '.$row['id'].' Estado:'.$row['estado'].' Nombre Ganador:'.$row['nombre'].' Dineros: '.$row['pujaMaxima'].'<br>';
+				// CAMBIAR EL ESTADO A VENDIDO
+				// CREAR EL MENSAJE DE NOTIFICACION
+
+			}
+		}
+
+
+
+
+		$conexion->close();
+	} 
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
 /////////                          FUNCIONES PARA PUJAS                              ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * [Pujar funcion que inserta las pujas en la base de datos]
+	 * @param  entero $producto ID del producto
+	 * @param  entero $puja     cantidad a pujar
+	 * @param  entero $usuario  ID del usuario pujador
+	 * @return HTML           esctructura HTML
+	 */
 	function pujar($producto, $puja, $usuario){
 		$conexion = conexion();
 		$sql = 'insert into pujas(producto,puja,usuario) values('.$producto.','.$puja.','.$usuario.') ';
@@ -340,8 +384,6 @@
 		}else{
 			echo "ERROR";
 		}
-
-
 
 		$conexion->close();
 	}
