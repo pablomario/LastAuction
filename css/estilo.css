@@ -122,6 +122,14 @@ section{
 	box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.32);
 }
 
+section h2{
+	background: url('../img/larga.jpg') right center;
+	padding: 5px 15px 5px 0px;
+	text-align: right;	
+	color: #fff;
+	margin-bottom: 10px;
+}
+
 section article form.datos input{
 	padding: 5px;
 	margin: 5px;
@@ -133,11 +141,7 @@ section article form.datos input[type="submit"]{
 	width: 92%;
 }
 
-section article form.datos h2{
-	text-align: right;
-	border-bottom: 1px solid #373737;
-	margin-bottom: 10px;
-}
+
 
 footer{
 	float: left;	

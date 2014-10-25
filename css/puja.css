@@ -1,10 +1,4 @@
 
-section h2{
-	padding: 5px 15px 5px 0px;
-	text-align: right;
-	background: #01abe6;
-	color: #fff;
-}
 
 article.solo{
 	margin-top: 20px;
@@ -51,3 +45,4 @@ article.solo .descripcion{
 	display: block;
 	clear: both;
 }
+

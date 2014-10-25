@@ -1,7 +1,7 @@
 <?php
 	require_once('conexion.php');	
 
-	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/lastauction/");
 
 
 
@@ -334,33 +334,107 @@
 // 0 - Subasta terminada
 // 1 - Subasta Activa -> AL CREAR LA SUBASTA
 // 2 - Subata vendida	
+// 3 - Puja Aceptada
 
-
+	/**
+	 * DISPARADOR PARA NOTIFICACIONES Y SUBASTAS
+	 * Cambio el estado de las subastas para que no se visualicen si han terminado
+	 * y creo las notificaciones de subasta terminada con pujas (vendida) o
+	 * subata terminada sin pujas (finalizada)
+	 * @return nada nada
+	 */
 	function limpieza(){
 		$conexion = conexion();
 		echo "LIMPIEZA! <br>";
 		$now=strtotime(date("Y-m-d h:i"));  
 
-		// SOLO SI TIENE PUJA (ESTA VENDIDO CAMBIAR A ESTADO 2)
-		$sql = 'select a.id , a.estado, c.nombre, max(b.puja) as pujaMaxima  from productos a, pujas b, usuarios c
-where a.id = b.producto and c.id = b.usuario and b.puja > 0 and a.fechafin >'.$now.' group by a.id';
+		// SOLO HA TERMINADO Y ADEMAS TIENE PUJAS (CAMBIAR A ESTADO 2)
+		$sql = 'SELECT a.id, a.titulo , a.estado, c.id as idUsuario, c.nombre, max(b.puja) as pujaMaxima FROM productos a, pujas b, usuarios c 
+				WHERE a.id = b.producto and c.id = b.usuario and b.puja > 0 and a.fechafin <'.$now.' and a.estado = 1 GROUP BY a.id';
 		if($resultado = $conexion->query($sql)){
-			while($row=$resultado->fetch_array(MYSQLI_ASSOC)){
-				echo 'ID: '.$row['id'].' Estado:'.$row['estado'].' Nombre Ganador:'.$row['nombre'].' Dineros: '.$row['pujaMaxima'].'<br>';
-				// CAMBIAR EL ESTADO A VENDIDO
-				// CREAR EL MENSAJE DE NOTIFICACION
-
+			while($row=$resultado->fetch_array(MYSQLI_ASSOC)){				
+				// CAMBIAR EL ESTADO A VENDIDO			
+				$sqlUpdate = 'update productos set estado=2 , comprador='.$row['idUsuario'].' where id='.$row['id'].';';
+				if($conexion->query($sqlUpdate)){
+					// CREAR EL MENSAJE DE NOTIFICACION
+					$descripcion = "¡Enhorabuena! Has comprado el articulo <span>".$row['titulo']."</span> por: ".$row['pujaMaxima']."€. ";					
+					$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(2, '".$descripcion."',".$row['idUsuario'].")";
+					if($conexion->query($sqlNoti)){
+						//echo "todo OK";
+					}
+				}
 			}
 		}
 
-
-
-
+		// LA SUBASTA HA TERMINADO PERO NO TIENE PUJAS (CAMBIAR A ESTADO 0)
+		$sql = 'SELECT * FROM productos where fechafin < '.$now.' and estado = 1 ';
+		if($resultado = $conexion->query($sql)){
+			while($row = $resultado->fetch_array(MYSQLI_ASSOC)){
+				// CAMBIAR EL ESTADO A FINALIZADO
+				$sqlUpdate = 'update productos set estado=0 where id='.$row['id'].';';
+				if($conexion->query($sqlUpdate)){
+					// CREAR NOTIFICACION
+					$descripcion = "Lo sentimos, su subasta <span>".$row['titulo']."</span> ha caducado.";
+					$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(0, '".$descripcion."',".$row['usuario'].")";
+					if($conexion->query($sqlNoti)){
+						//echo "todo OK 2";
+					}
+				}
+			}
+		}
 		$conexion->close();
 	} 
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////                              NOTIFICACIONES                                ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 
+// 0 - Subasta terminada
+// 1 - Subasta Activa -> AL CREAR LA SUBASTA
+// 2 - Subata vendida	
+// 3 - Puja Aceptada
+
+	function notificacionPuja($idUsuario){
+		$conexion = conexion();
+		$sql = 'select * from notificaciones where usuario ='.$idUsuario.' and tipo = 3 ';
+		if($resultado = $conexion->query($sql)){
+			while($row=$resultado->fetch_array(MYSQLI_ASSOC)){
+				echo '<p class=notificacionPuja>'.$row['descripcion'].'</p>';
+			}
+		}
+		$conexion->close();		
+	}
+
+	function notificacionVenta($idUsuario){
+		$conexion = conexion();
+		$sql = '';
+		// CAMPO COMPRADOR EN PRODUCTOS
+		$conexion->close();
+	}
+
+	function notificacionCompra($idUsuario){
+		$conexion = conexion();
+		$sql = 'select * from notificaciones where usuario ='.$idUsuario.' and tipo = 2 ';
+		if($resultado = $conexion->query($sql)){
+			while($row=$resultado->fetch_array(MYSQLI_ASSOC)){
+				echo '<p class=notificacionCompra>'.$row['descripcion'].'</p>';
+			}
+		}
+		$conexion->close();		
+	}
+
+	function notificacionCaducada($idUsuario){
+		$conexion = conexion();
+		$sql = 'select * from notificaciones where usuario ='.$idUsuario.' and tipo = 0 ';
+		if($resultado = $conexion->query($sql)){
+			while($row=$resultado->fetch_array(MYSQLI_ASSOC)){
+				echo '<p class=notificacionCaducada>'.$row['descripcion'].'</p>';
+			}
+		}
+
+		$conexion->close();
+	}
 
 
 
@@ -379,8 +453,26 @@ where a.id = b.producto and c.id = b.usuario and b.puja > 0 and a.fechafin >'.$n
 		$conexion = conexion();
 		$sql = 'insert into pujas(producto,puja,usuario) values('.$producto.','.$puja.','.$usuario.') ';
 
-		if($resultado = $conexion->query($sql)){
-			echo "PUJA ACEPTADA";
+		if($conexion->query($sql)){				
+			
+			$sqlProducto = 'select * from productos where id ='.$producto.'; ';
+
+			if($resultado = $conexion->query($sqlProducto)){
+				if($row = $resultado->fetch_array(MYSQLI_ASSOC)){
+					$descripcion = "¡Genial! Tu puja de <span>".$puja."€</span> para <span>".$row['titulo']."</span> ha sido aceptada.";					
+					$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(3, '".$descripcion."',".$usuario.")";
+					if($conexion->query($sqlNoti)){
+						header('Location: '.URL_LOCAL.'/solo.php?p='.$producto);
+					}else{
+						echo "3";
+					}					
+				}else{
+					echo "2";
+				}
+			}else{
+				echo "1";
+			}
+			
 		}else{
 			echo "ERROR";
 		}

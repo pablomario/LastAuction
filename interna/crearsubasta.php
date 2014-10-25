@@ -37,9 +37,9 @@
 			</aside>
 
 			<section>
+				<h2>Crear Subasta</h2>  
 				<article>   					    
-					<form action="nuevoproducto.php" method="POST" ENCTYPE="multipart/form-data" class="datos">
-						<h2>Crear Subasta</h2>  
+					<form action="nuevoproducto.php" method="POST" ENCTYPE="multipart/form-data" class="datos">						
 						Nombre de Producto:<br>
 						<input type="text" name="titulo" placeholder="Titulo anuncio" required /> <br>
 						Descripcion Producto: <br>
@@ -50,7 +50,7 @@
 							<option value="2">Joyeria y Relojes</option>
 							<option value="3">Moda y Accesorios</option>
 							<option value="4">Deporte y Salud</option> 
-							<option value="5">Electronica y Salud</option>            
+							<option value="5">Electronica y Tecnologia</option>            
 						</select><br>  
 						Precio de Salida: <br>
 						<input type="number" step="0.01" name="preciominimo" placeholder="precio minimo" required/> <br>
