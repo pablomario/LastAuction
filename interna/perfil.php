@@ -38,9 +38,10 @@
 
 			<section>
 				<article class="aviso">
-					<h2>Todavia no has subastado nada:</h2>
+					<h2>Recuerda que puedes vender tus productos:</h2>
 					<a href="crearsubasta.php" class="boton">Crear subasta Ahora</a>					
 				</article>
+
 			</section>			
 		</div>
 

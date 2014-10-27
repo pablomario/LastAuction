@@ -53,7 +53,7 @@
 							<option value="5">Electronica y Tecnologia</option>            
 						</select><br>  
 						Precio de Salida: <br>
-						<input type="number" step="0.01" name="preciominimo" placeholder="precio minimo" required/> <br>
+						<input type="number" name="preciominimo" placeholder="precio minimo" required/> <br>
 						<!--Precio compra Directa: <br>
 						<input type="number" step="0.01" name="compradirecta" placeholder="Precio Compra directa" /> -->
 						Fecha finalizacion: <br>

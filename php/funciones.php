@@ -1,7 +1,7 @@
 <?php
 	require_once('conexion.php');	
 
-	define("URL_LOCAL","http://127.0.0.1/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
 
 
 
@@ -97,6 +97,52 @@
 		echo '</article>';	
 	}
 
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////                      FUNCIONES CREACION SUBASTA                            ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+	function crearSubasta($usuario, $titulo, $descripcion, $preciominimo, $fechafin, $categoria){
+		$conexion = conexion();
+		$fecha =  date("Y-m-d h:i");
+  		$fechainicial=strtotime($fecha);
+  		$fechafin = $fechainicial + ($fechafin*3600);
+		$sql = "insert into productos (titulo, descripcion, preciominimo, fechainicial, fechafin, estado, usuario, categoria) 
+		values('".$titulo."','".$descripcion."',".$preciominimo.",".$fechainicial.",".$fechafin.",1,".$usuario.",".$categoria.")";
+				
+		if($conexion->query($sql)){		
+			if($resultado = $conexion->query("select LAST_INSERT_ID()")){				
+				if($row=$resultado->fetch_array()){
+					$idProducto = $row[0];
+					$descripcion = "Tus subasta <span>".$titulo."</span> se ha creado correctamente.";					
+					$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(4, '".$descripcion."',".$usuario.")";
+					if($conexion->query($sqlNoti)){
+						header('Location: '.URL_LOCAL.'/solo.php?p='.$producto);
+					}else{
+						echo "3";
+					}					
+					return $idProducto;
+				}
+			}			
+		}else{
+			echo "ERROR!";
+			return 0;
+		}
+		$conexion->close();
+	}
+
+	function guardarImagen($idProducto,$imagen){
+		$conexion = conexion();
+		$sql = "insert into imagenes (producto,imagen) values('".$idProducto."','".$imagen."')";
+		if($conexion->query($sql)){
+			return true;
+		}else{
+			return false;
+		}
+		$conexion->close();
+
+	}
 
 
 
@@ -349,7 +395,7 @@
 		$now=strtotime(date("Y-m-d h:i"));  
 
 		// SOLO HA TERMINADO Y ADEMAS TIENE PUJAS (CAMBIAR A ESTADO 2)
-		$sql = 'SELECT a.id, a.titulo , a.estado, c.id as idUsuario, c.nombre, max(b.puja) as pujaMaxima FROM productos a, pujas b, usuarios c 
+		$sql = 'SELECT a.id, a.titulo, a.usuario,  a.estado, c.id as idUsuario, c.nombre, max(b.puja) as pujaMaxima FROM productos a, pujas b, usuarios c 
 				WHERE a.id = b.producto and c.id = b.usuario and b.puja > 0 and a.fechafin <'.$now.' and a.estado = 1 GROUP BY a.id';
 		if($resultado = $conexion->query($sql)){
 			while($row=$resultado->fetch_array(MYSQLI_ASSOC)){				
@@ -362,6 +408,13 @@
 					if($conexion->query($sqlNoti)){
 						//echo "todo OK";
 					}
+					$descripcion = "¡Felicidades! Has vendido el articulo <span>".$row['titulo']."</span> por: ".$row['pujaMaxima']."€. ";					
+					$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(2, '".$descripcion."',".$row['usuario'].")";
+					if($conexion->query($sqlNoti)){
+						//echo "todo OK";
+					}
+
+
 				}
 			}
 		}
@@ -394,6 +447,8 @@
 // 1 - Subasta Activa -> AL CREAR LA SUBASTA
 // 2 - Subata vendida	
 // 3 - Puja Aceptada
+// 4 - Subasta Creada
+
 
 	function notificacionPuja($idUsuario){
 		$conexion = conexion();
@@ -408,8 +463,12 @@
 
 	function notificacionVenta($idUsuario){
 		$conexion = conexion();
-		$sql = '';
-		// CAMPO COMPRADOR EN PRODUCTOS
+		$sql = 'select * from notificaciones where usuario ='.$idUsuario.' and tipo = 2 ';
+		if($resultado = $conexion->query($sql)){
+			while($row=$resultado->fetch_array(MYSQLI_ASSOC)){
+				echo '<p class=notificacionCompra>'.$row['descripcion'].'</p>';
+			}
+		}
 		$conexion->close();
 	}
 
@@ -435,6 +494,23 @@
 
 		$conexion->close();
 	}
+
+	// CAMBIAR LAS NOTIFICACIONES A CADA UNA CON SU CLASE
+		function subastaCreada($idUsuario){
+		$conexion = conexion();
+		$sql = 'select id, tipo, descripcion from notificaciones where usuario ='.$idUsuario.' order by id desc';
+		if($resultado = $conexion->query($sql)){
+			while($row=$resultado->fetch_array(MYSQLI_ASSOC)){
+				echo '<p class=notificacionCaducada>'.$row['descripcion'].'</p>';
+			}
+		}
+
+		$conexion->close();
+	}
+
+
+
+
 
 
 

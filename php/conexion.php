@@ -5,7 +5,7 @@
 	 * @return conexion retorna una conexion
 	 */
 	function conexion(){		
-		$conexion = new mysqli("127.0.0.1","root","","lastauction");
+		$conexion = new mysqli("127.0.0.1","root","root","lastauction");
 		if(mysqli_connect_errno()){
 			die("Error: " .mysqli_connect_errno());
 		}
