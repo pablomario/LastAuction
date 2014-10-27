@@ -11,29 +11,33 @@ section article form input, textarea, select{
 	padding: 5px;
 }
 
+article p{
+	color: #272822;
+}
 
 article p.notificacionPuja{
 	padding: 5px;
 	margin: 5px;
-	background: #C4E8FB;
-	border: 1px solid #67A7F5;
+	background: #20aeef;	
 }
-
 
 article p.notificacionCompra{	
 	padding: 5px;
 	margin: 5px;
-	background: #CCF3CB;
-	border: 1px solid #92E294;
+	background: #ACDA10;	
 }
 
 article p.notificacionCaducada{
 	padding: 5px;
 	margin: 5px;
-	background: #FFD9D9;
-	border: 1px solid #EC8888;
+	background: #ff5462;	
 }
 
+article p.notificacionVenta{
+	padding: 5px;
+	margin: 5px;
+	background: #CBEC46;	
+}
 
 
 
