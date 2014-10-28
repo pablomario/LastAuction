@@ -141,6 +141,22 @@ section article form.datos input[type="submit"]{
 	width: 92%;
 }
 
+section article p.resultadoBusqueda a{
+	padding: 10px;
+	color: #4A9AEA;
+	text-decoration: none;
+	display: inline-block;
+	
+}
+
+section article p.resultadoBusqueda a:hover{
+	padding: 17px;
+	color: #4A9AEA;
+	text-decoration: underline;
+	margin-bottom: 10px;
+}
+
+
 
 
 footer{

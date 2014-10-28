@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	require_once('php/funciones.php');
-	$idProducto = $_GET['p'];	
+	$palabra = $_POST['palabra'];
 ?>
 
 <!DOCTYPE html>
@@ -32,14 +32,12 @@
 			<?php include('aside.php');	?>
 
 			<section>	
-				<h2>Pujar Ahora</h2>		
-				<?php 
-					if(isset($_SESSION['id_usuario'])){
-						listarProducto($idProducto, true); 
-					}else{
-						listarProducto($idProducto,false); 
-					}					
-				?>			
+				<h2>Busqueda</h2>
+				<article>
+					<!-- Resultado Buscador -->
+					<?php buscar($palabra);	?>
+				</article>		
+				
 			</section>			
 		</div>
 

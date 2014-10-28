@@ -1,7 +1,7 @@
 <?php
 	require_once('conexion.php');	
 
-	define("URL_LOCAL","http://127.0.0.1/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
 
 
 
@@ -34,13 +34,13 @@
 					$_SESSION['email']=$email;
 					header('Location: subastas.php');	
 				}else{
-					header('Location: index.html');					
+					header('Location: index.php');					
 				}				
 			}else{
-				header('Location: index.html');	
+				header('Location: index.php');	
 			}
 		}else{
-			header('Location: index.html');	
+			header('Location: index.php');	
 		}
 		$conexion->close();
 	}
@@ -82,7 +82,7 @@
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-/////////                      PERFIL DEL USUARIO ASIDE                              ////////
+/////////                     	      FUNCIONES ASIDE                                ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
@@ -95,6 +95,34 @@
 		echo '<a href="'.URL_LOCAL.'interna/perfil.php"><img src="'.URL_LOCAL.'usuarios/default.jpg"></a>';
 		echo '<p><a href="'.URL_LOCAL.'interna/perfil.php">¡Hola <span>'.$usuario.'</span>!</a></p>';
 		echo '</article>';	
+	}
+
+	/**
+	 * [buscador description]
+	 * @return [type] Crear estructura del Buscador
+	 */
+	function buscador(){
+		echo '<article class="busqueda">';					
+			echo '<h2>Buscar</h2>';      
+			echo '<form action="'.URL_LOCAL.'resultado.php" method="POST">';
+				echo '<input type="text" name="palabra" id="palabra" >';											
+			echo '</form>';
+		echo '</article>';
+	}
+
+	/**
+	 * [categorias description]
+	 * @return [type] Crea estructura HTML paa busca por categorias
+	 */
+	function categorias(){
+		echo '<article>';
+			echo '<h2>Categorías</h2>';					
+			echo '<a href=""><div class="menuVertical casa">Casa y Jardin</div></a><br>';
+			echo '<a href=""><div class="menuVertical joyeria">Joyeria y Relojes</div></a><br>';
+			echo '<a href=""><div class="menuVertical moda">Moda y Accesorios</div></a><br>';
+			echo '<a href=""><div class="menuVertical deporte">Deporte y Salud</div></a><br>';
+			echo '<a href=""><div class="menuVertical electronica">Electronica y Tecnologia</div></a><br>';				 	
+		echo '</article>';
 	}
 
 
@@ -336,7 +364,7 @@
 			if($row = $resultado->fetch_array()){
 				echo '<article class="solo">';				
 				$urlImagen = substr($row[5], 1);
-				echo '<img src='.$urlImagen.'>';
+				echo '<a href='.$urlImagen.' target="_blanck"><img src='.$urlImagen.'></a>';
 
 				echo '<div class="datosBasicos"> ';
 				echo '<h3>'.$row[1].'</h3>';							
@@ -513,9 +541,26 @@
 	}
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////                         BUSCADOR - BUSQUEDAS                               ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
+
+function buscar($palabra){
+	$conexion = conexion();
+	$sql = "select * from productos where titulo like '%".$palabra."%' and estado = 1 ;";
+
+	if($resultado = $conexion->query($sql)){
+		while($row = $resultado->fetch_array(MYSQLI_ASSOC)){
+			echo "<p class='resultadoBusqueda'><a href=".URL_LOCAL."/solo.php?p=".$row['id'].">".$row['titulo']."</a></p>";
+		}
+	}
+
+
+	$conexion->close();
+}
 
 
 

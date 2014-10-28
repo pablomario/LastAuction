@@ -30,12 +30,9 @@
 		<header><!--NO BORRAR ESTA ETIQUETA --></header>
 
 		<div class="centrado">
-			<aside>				
-				<?php
-		          cuadroPerfil($_SESSION['nombre']);			                                  
-		        ?>			
-			</aside>
-
+			<!-- ASIDE -->
+			<?php include('../aside.php');	?>
+			
 			<section>
 				<article class="aviso">
 					<h2>Recuerda que puedes vender tus productos:</h2>

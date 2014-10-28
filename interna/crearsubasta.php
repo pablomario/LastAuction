@@ -30,11 +30,8 @@
 		<header><!--NO BORRAR ESTA ETIQUETA --></header>
 
 		<div class="centrado">
-			<aside>
-				<?php
-					cuadroPerfil($_SESSION['nombre']);
-				?>
-			</aside>
+			<!-- ASIDE -->
+			<?php include('../aside.php');	?>
 
 			<section>
 				<h2>Crear Subasta</h2>  

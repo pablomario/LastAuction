@@ -32,6 +32,11 @@ aside article form a:hover{
 	text-decoration: underline;	
 }
 
+aside article.busqueda input{
+	padding: 5px;
+	border: 1px solid #373737;
+}
+
 
 /* ASIDE MENU */
 

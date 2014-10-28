@@ -26,33 +26,8 @@
     <header><!--NO BORRAR ESTA ETIQUETA --></header>
 
     <div class="centrado">
-      <aside>
-        <article>
-          <?php
-            if(isset($_SESSION['id_usuario'])){
-              cuadroPerfil($_SESSION['nombre']);
-            }else{              
-              echo '<h2>Identifícate</h2>';        
-              echo '<form action="login.php" method="POST">';
-                echo '<input type="text" name="email" id="email" placeholder="email@email.com" />';
-                echo '<input type="password" name="password" id="password" placeholder="contraseña" />';
-                echo '<input type="submit" name="enviar" value="Iniciar Sesion" />';
-                echo '<a href="">¿Todavia no tienes cuenta?</a>';
-              echo '</form>';
-            }
-          ?>
-        </article>
-
-        <article>
-          <h2>Categorías</h2>         
-          <a href=""><div class="menuVertical casa">Casa y Jardin</div></a><br>
-          <a href=""><div class="menuVertical joyeria">Joyeria y Relojes</div></a><br>
-          <a href=""><div class="menuVertical moda">Moda y Accesorios</div></a><br>
-          <a href=""><div class="menuVertical deporte">Deporte y Salud</div></a><br>
-          <a href=""><div class="menuVertical electronica">Electronica y Tecnologia</div></a><br>         
-        </article>
-
-      </aside>
+      <!-- ASIDE -->
+      <?php include('aside.php'); ?>
 
       <section>
         <article>         
