@@ -1,7 +1,7 @@
 <?php
 	require_once('conexion.php');	
 
-	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/lastauction/");
 
 
 
@@ -105,7 +105,7 @@
 		echo '<article class="busqueda">';					
 			echo '<h2>Buscar</h2>';      
 			echo '<form action="'.URL_LOCAL.'resultado.php" method="POST">';
-				echo '<input type="text" name="palabra" id="palabra" >';											
+				echo '<input type="text" name="palabra" id="palabra" placeholder="Ej. Bicicleta">';											
 			echo '</form>';
 		echo '</article>';
 	}
@@ -194,6 +194,10 @@
 	    return "<span>Finaliza en: ".$dias."d ".$horas."h</span>";
 	}
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////                              MENU SUPERIOR                                 ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 	function menuLogeado(){
 		echo '<a href="'.URL_LOCAL.'index.php"><img id="logotipo" src="'.URL_LOCAL.'img/logomini.png" alt="last auction"></a>';
@@ -401,6 +405,26 @@
 	}
 
 
+/**
+ * [ultimosProductos description]
+ * @return [type] Crea estructura HTML mostrando las ultimas 16 subtas creadas
+ */
+	function ultimosProductos(){
+		$conexion = conexion();
+		$sql = 'select a.id, a.titulo, b.imagen from productos a, imagenes b where a.id = b.producto order by a.id desc limit 16';
+		if($resultado = $conexion->query($sql)){
+			while($row = $resultado->fetch_array()){
+				$urlImagen = substr($row[2], 1);				
+				echo '<p><a href='.URL_LOCAL.'/solo.php?p='.$row[0].'><img src='.$urlImagen.'></a></p>';
+			}
+		}
+		$conexion->close();
+	}
+
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                                 DISPARADOR                                 ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -518,7 +542,7 @@
 					$descripcion = "<p class=notificacionPuja>¡Genial! Tu puja de <span>".$puja."€</span> para <span>".$row['titulo']."</span> ha sido aceptada.</p>";					
 					$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(3, '".$descripcion."',".$usuario.")";
 					if($conexion->query($sqlNoti)){
-						header('Location: '.URL_LOCAL.'/solo.php?p='.$producto);
+						header('Location: '.URL_LOCAL.'/interna/notificaciones.php');
 					}else{
 						echo "3";
 					}					

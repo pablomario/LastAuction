@@ -58,6 +58,10 @@
 						</script>
 					</div>
 				</article>
+				<article class="ultimosProductos">
+					<h2>Ultimas Subastas Creadas</h2>
+					<?php ultimosProductos(); ?>
+				</article>
 			</section>			
 		</div>
 
