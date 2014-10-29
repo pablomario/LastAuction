@@ -2,6 +2,8 @@
 	session_start();
 	require_once('php/funciones.php');
 	$palabra = $_POST['palabra'];
+	$categoria = $_GET['c'];
+	
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +37,13 @@
 				<h2>Busqueda</h2>
 				<article>
 					<!-- Resultado Buscador -->
-					<?php buscar($palabra);	?>
+					<?php
+						if(!empty($categoria)){
+							 buscarCategoria($categoria);
+						}else{
+							buscar($palabra);
+						}
+					?>
 				</article>		
 				
 			</section>			

@@ -1,7 +1,7 @@
 <?php
 	require_once('conexion.php');	
 
-	define("URL_LOCAL","http://127.0.0.1/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
 
 
 
@@ -117,11 +117,11 @@
 	function categorias(){
 		echo '<article>';
 			echo '<h2>Categorías</h2>';					
-			echo '<a href=""><div class="menuVertical casa">Casa y Jardin</div></a><br>';
-			echo '<a href=""><div class="menuVertical joyeria">Joyeria y Relojes</div></a><br>';
-			echo '<a href=""><div class="menuVertical moda">Moda y Accesorios</div></a><br>';
-			echo '<a href=""><div class="menuVertical deporte">Deporte y Salud</div></a><br>';
-			echo '<a href=""><div class="menuVertical electronica">Electronica y Tecnologia</div></a><br>';				 	
+			echo '<a href="'.URL_LOCAL.'resultado.php?c=1"><div class="menuVertical casa">Casa y Jardin</div></a><br>';
+			echo '<a href="'.URL_LOCAL.'resultado.php?c=2"><div class="menuVertical joyeria">Joyeria y Relojes</div></a><br>';
+			echo '<a href="'.URL_LOCAL.'resultado.php?c=3"><div class="menuVertical moda">Moda y Accesorios</div></a><br>';
+			echo '<a href="'.URL_LOCAL.'resultado.php?c=4"><div class="menuVertical deporte">Deporte y Salud</div></a><br>';
+			echo '<a href="'.URL_LOCAL.'resultado.php?c=5"><div class="menuVertical electronica">Electronica y Tecnologia</div></a><br>';				 	
 		echo '</article>';
 	}
 
@@ -194,7 +194,6 @@
 	    return "<span>Finaliza en: ".$dias."d ".$horas."h</span>";
 	}
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                              MENU SUPERIOR                                 ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -216,8 +215,6 @@
 			echo '<a href="'.URL_LOCAL.'registro.php"><li><i class="fa fa-users "></i> registro</li></a>';								
 		echo '</ul>';
 	}
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                     FUNCIONES VISUALIZACION PRODUCTOS                      ////////
@@ -352,8 +349,6 @@
 		$conexion->close();
 	}
 
-
-
 	/**
 	 * [listarProducto description]
 	 * @param  int $idProducto numero identificacion de producto a listar
@@ -404,26 +399,21 @@
 		$conexion->close();
 	}
 
-
-/**
- * [ultimosProductos description]
- * @return [type] Crea estructura HTML mostrando las ultimas 16 subtas creadas
- */
-	function ultimosProductos(){
-		$conexion = conexion();
-		$sql = 'select a.id, a.titulo, b.imagen from productos a, imagenes b where a.id = b.producto order by a.id desc limit 16';
-		if($resultado = $conexion->query($sql)){
-			while($row = $resultado->fetch_array()){
-				$urlImagen = substr($row[2], 1);				
-				echo '<p><a href='.URL_LOCAL.'/solo.php?p='.$row[0].'><img src='.$urlImagen.'></a></p>';
+	/**
+	 * [ultimosProductos description]
+	 * @return [type] Crea estructura HTML mostrando las ultimas 16 subtas creadas
+	 */
+		function ultimosProductos(){
+			$conexion = conexion();
+			$sql = 'select a.id, a.titulo, b.imagen from productos a, imagenes b where a.id = b.producto and a.estado = 1 order by a.id desc limit 12';
+			if($resultado = $conexion->query($sql)){
+				while($row = $resultado->fetch_array()){
+					$urlImagen = substr($row[2], 1);				
+					echo '<p><a href='.URL_LOCAL.'/solo.php?p='.$row[0].'><img src='.$urlImagen.'></a></p>';
+				}
 			}
+			$conexion->close();
 		}
-		$conexion->close();
-	}
-
-
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                                 DISPARADOR                                 ////////
@@ -490,7 +480,6 @@
 		$conexion->close();
 	} 
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                              NOTIFICACIONES                                ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -501,7 +490,6 @@
 // 3 - Puja Aceptada
 // 4 - Subasta Creada
 
-	
 
 	// CAMBIAR LAS NOTIFICACIONES A CADA UNA CON SU CLASE
 		function subastaCreada($idUsuario){
@@ -515,8 +503,6 @@
 
 		$conexion->close();
 	}
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                          FUNCIONES PARA PUJAS                              ////////
@@ -560,28 +546,32 @@
 		$conexion->close();
 	}
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                         BUSCADOR - BUSQUEDAS                               ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-function buscar($palabra){
-	$conexion = conexion();
-	$sql = "select * from productos where titulo like '%".$palabra."%' and estado = 1 ;";
+	function buscar($palabra){
+		$conexion = conexion();
+		$sql = "select * from productos where titulo like '%".$palabra."%' and estado = 1 ;";
 
-	if($resultado = $conexion->query($sql)){
-		while($row = $resultado->fetch_array(MYSQLI_ASSOC)){
-			echo "<p class='resultadoBusqueda'><a href=".URL_LOCAL."/solo.php?p=".$row['id'].">".$row['titulo']."</a></p>";
+		if($resultado = $conexion->query($sql)){
+			while($row = $resultado->fetch_array(MYSQLI_ASSOC)){
+				echo "<p class='resultadoBusqueda'><a href=".URL_LOCAL."/solo.php?p=".$row['id'].">".$row['titulo']."</a></p>";
+			}
 		}
+		$conexion->close();
 	}
 
+	function buscarCategoria($categoria){
+		$conexion = conexion();
+		$sql = "select * from productos where categoria =".$categoria." ;";
 
-	$conexion->close();
-}
-
-
-
-
-
+		if($resultado = $conexion->query($sql)){
+			while($row = $resultado->fetch_array(MYSQLI_ASSOC)){
+				echo "<p class='resultadoBusqueda'><a href=".URL_LOCAL."/solo.php?p=".$row['id'].">".$row['titulo']."</a></p>";
+			}
+		}
+		$conexion->close();
+	}
 
 ?>
