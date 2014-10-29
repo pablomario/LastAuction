@@ -79,6 +79,24 @@
 	}
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////                        PERFIL PUBLICO DE USUARIO                           ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+	function datosUsuario($idUsuario){
+		$conexion = conexion();
+
+		$sql ='select nombre, direccion, email from usuarios where id ='.$idUsuario.';';
+
+		if($resultado = $conexion->query($sql)){
+			while($row = $resultado->fetch_array()){				
+				echo 'Nombre: '.$row[0].'<br>';
+				echo 'Direccion: '.$row[1].'<br>';
+				echo 'email: '.$row[2].'<br>';
+			}
+		}
+		$conexion->close();
+	}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -124,7 +142,6 @@
 			echo '<a href="'.URL_LOCAL.'resultado.php?c=5"><div class="menuVertical electronica">Electronica y Tecnologia</div></a><br>';				 	
 		echo '</article>';
 	}
-
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -173,8 +190,6 @@
 	}
 
 
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                         FUNCIONES MISCELANEAS                              ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -193,6 +208,7 @@
 	    $tiempo=$tiempo-$horas*3600;	   
 	    return "<span>Finaliza en: ".$dias."d ".$horas."h</span>";
 	}
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                              MENU SUPERIOR                                 ////////
@@ -215,6 +231,7 @@
 			echo '<a href="'.URL_LOCAL.'registro.php"><li><i class="fa fa-users "></i> registro</li></a>';								
 		echo '</ul>';
 	}
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                     FUNCIONES VISUALIZACION PRODUCTOS                      ////////
@@ -265,7 +282,7 @@
 				$queryUsuario = 'select nombre from usuarios where id='.$row['usuario'].';';
 				if($resultadoUsuario =  $conexion->query($queryUsuario)){
 					if($rowUsuario = $resultadoUsuario->fetch_array()){
-						echo '<p class="vendedor">'.$rowUsuario[0].'</p>';
+						echo '<p class="vendedor"><a href='.URL_LOCAL.'perfilpublico.php?u='.$row['usuario'].' >'.$rowUsuario[0].'</a></p>';
 					}
 				}
 				$sqlPrecio = 'select MAX(puja) from pujas where producto ='.$row['id'].';';
@@ -356,7 +373,7 @@
 	 */
 	function listarProducto($idProducto, $estado){
 		$conexion = conexion();
-		$sql ='select a.id, a.titulo, a.descripcion, a.fechafin, c.nombre,  b.imagen , a.preciominimo ';		 
+		$sql ='select a.id, a.titulo, a.descripcion, a.fechafin, c.nombre,  b.imagen , a.preciominimo , c.id ';		 
 		$sql.='from productos a, imagenes b, usuarios c ';
 		$sql.='where a.id = b.producto and a.usuario = c.id and a.id ='.$idProducto.'';		
 		if($resultado = $conexion->query($sql) ){
@@ -367,8 +384,8 @@
 
 				echo '<div class="datosBasicos"> ';
 				echo '<h3>'.$row[1].'</h3>';							
-				echo '<p>'.seg2tiempo($row[3]).'</p>'; 
-				echo '<p class="vendedor"> Vendedor: '.$row[4].'</p>';
+				echo '<p>'.seg2tiempo($row[3]).'</p>';
+				echo '<p class="vendedor"> <a href='.URL_LOCAL.'perfilpublico.php?u='.$row[7].' >'.$row[4].'</a></p>';
 				echo '</div>';	
 				if($estado){
 					echo '<form action="interna/pujar.php" method="POST">';
@@ -414,6 +431,7 @@
 			}
 			$conexion->close();
 		}
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                                 DISPARADOR                                 ////////
@@ -545,6 +563,7 @@
 
 		$conexion->close();
 	}
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                         BUSCADOR - BUSQUEDAS                               ////////

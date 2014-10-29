@@ -158,8 +158,7 @@ section article p.resultadoBusqueda a{
 	padding: 10px;
 	color: #4A9AEA;
 	text-decoration: none;
-	display: inline-block;
-	
+	display: inline-block;	
 }
 
 section article p.resultadoBusqueda a:hover{
@@ -169,7 +168,10 @@ section article p.resultadoBusqueda a:hover{
 	margin-bottom: 10px;
 }
 
-
+section article .vendedor a{
+	color: #888888;
+	text-decoration: none;
+}
 
 
 footer{
