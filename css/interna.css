@@ -39,6 +39,13 @@ article p.notificacionVenta{
 	background: #CBEC46;	
 }
 
+article p.notificacionSobrepuja{
+	padding: 5px;
+	margin: 5px;
+	background: #FEBC34;	
+}
+
+
 
 article p span{
 	font-weight: bold;

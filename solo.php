@@ -35,7 +35,7 @@
 				<h2>Pujar Ahora</h2>		
 				<?php 
 					if(isset($_SESSION['id_usuario'])){
-						listarProducto($idProducto, true); 
+						listarProducto($idProducto, true, $_SESSION['id_usuario'] ); 
 					}else{
 						listarProducto($idProducto,false); 
 					}					
