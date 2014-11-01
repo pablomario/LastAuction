@@ -37,7 +37,7 @@
 					if(isset($_SESSION['id_usuario'])){
 						listarProducto($idProducto, true, $_SESSION['id_usuario'] ); 
 					}else{
-						listarProducto($idProducto,false); 
+						listarProducto($idProducto,false,0); 
 					}					
 				?>			
 			</section>			

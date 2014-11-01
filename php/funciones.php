@@ -199,16 +199,13 @@
 	 * @param  integer $segundos entra segundo
 	 * @return string           fecha fianl
 	 */
-	function seg2tiempo($segundos){
-	    $tiempo=$segundos;	   
-	    $tiempo=abs($tiempo);
-	    $dias=floor($tiempo/86400);
-	    $tiempo=$tiempo-$dias*86400;
-	    $horas=floor($tiempo/3600);
-	    $tiempo=$tiempo-$horas*3600;	   
-	    return "<span>Finaliza en: ".$dias."d ".$horas."h</span>";
+	function seg2tiempo($segundos){	       
+		$dias =  date('d', $segundos);
+		$horas =  date('H', $segundos);
+		$minutos =  date('i', $segundos);
+   		$total = $dias."d ".$horas."h ".$minutos."m ";
+	    return "<span>Finaliza en: ".$total."</span>";
 	}
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                              MENU SUPERIOR                                 ////////
@@ -388,7 +385,7 @@
 
 				echo '<div class="datosBasicos"> ';
 				echo '<h3>'.$row[1].'</h3>';							
-				echo '<p>'.seg2tiempo($row[3]).'</p>';
+				echo '<p>'.seg2tiempo($row[3]).'</p>';				
 				echo '<p class="vendedor"> <a href='.URL_LOCAL.'perfilpublico.php?u='.$row[7].' >'.$row[4].'</a></p>';
 				echo '</div>';	
 				if($estado){

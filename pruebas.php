@@ -1,7 +1,16 @@
 <?php
-	  require_once('php/funciones.php');  
+	 
+	$fechainicial=strtotime(date("Y-m-d h:i"));
+	echo $fechainicial;
 
-	limpieza();
+	$fechainicial = 2413829020;
+
+	echo "<br/>";
+    $caca =  date('d:H:i', $fechainicial);
+    $dias =  date('d', $fechainicial);
+    $horas =  date('H', $fechainicial);
+    $minutos =  date('i', $fechainicial);
+    echo $dias."dias ".$horas."horas ".$minutos."minutos ";
 
 
 ?>
@@ -14,31 +23,6 @@
 		<link rel="icon" href="img/favicon.png" type="image/x-icon">		
 	</head>
 	<body>		
-		<header>
-			<nav>
-			
-			</nav>
-			<h1></h1>
-		</header>
-
-		<section>
-			<article>
-				
-			</article>
-
-			<article>
-				
-			</article>
-		</section>
-
-		<aside>
-			<article>
-				
-			</article>
-		</aside>
-
-		<footer>
-			
-		</footer>
+	
 	</body>
 </html>
