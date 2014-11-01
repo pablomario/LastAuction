@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	require_once('php/funciones.php');
+	limpieza();
 ?>
 <!DOCTYPE html>
 <html>

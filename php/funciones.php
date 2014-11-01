@@ -1,7 +1,7 @@
  <?php
 	require_once('conexion.php');	
 
-	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/lastauction/");
 
 
 
@@ -396,13 +396,12 @@
 					$sqlPrecio = 'select  MAX(puja), usuario from pujas where producto = '.$idProducto.' and puja = (SELECT MAX(puja) FROM pujas where producto = '.$idProducto.')';
 					if($resultadoPrecio = $conexion->query($sqlPrecio)){
 						if($rowPrecio = $resultadoPrecio->fetch_array()){
-							echo "maximo usuario" .$rowPrecio[1];
-							echo "id USUARIO" .$idUsuario;
-							if($rowPrecio[1]!=$idUsuario){	
-								echo "ES DIFERENTE USUARIO";
+							
+							if($rowPrecio[1]!=$idUsuario){									
 								// miro que la ultima puja no sea del usuario que visualiza en este momento							
 								echo '<form action="interna/pujar.php" method="POST">';
 								echo '<input type="hidden" name="producto" value="'.$idProducto.'" > ';
+								echo '<input type="hidden" name="maximoPujador" value="'.$rowPrecio[1].'" > ';									
 								if($rowPrecio[0]!=null){								
 									echo '<input name="puja" type="number" min="'.($rowPrecio[0]+1).'" value="'.$rowPrecio[0].'">';
 								}else{
@@ -465,8 +464,7 @@
 	 * @return nada nada
 	 */
 	function limpieza(){
-		$conexion = conexion();
-		echo "LIMPIEZA! <br>";
+		$conexion = conexion();		
 		$now=strtotime(date("Y-m-d h:i"));  
 
 		// SOLO HA TERMINADO Y ADEMAS TIENE PUJAS (CAMBIAR A ESTADO 2)
@@ -549,56 +547,38 @@
 	 * @param  entero $usuario  ID del usuario pujador
 	 * @return HTML           esctructura HTML
 	 */
-	function pujar($producto, $puja, $usuario){
-		$conexion = conexion();
+	function pujar($producto, $puja, $usuario, $maximoPujador){
+		$conexion = conexion();				
+					
 		$sql = 'insert into pujas(producto,puja,usuario) values('.$producto.','.$puja.','.$usuario.') ';
+		if($conexion->query($sql)){				
 
-		$sqlSobrepuja = 'select usuario, MAX(puja) from pujas where producto = '.$producto.';';
-		if($patata = $conexion->query($sqlSobrepuja)){
-			if($rowSobrepuja = $patata->fetch_array()){
+			$sqlProducto = 'select * from productos where id ='.$producto.'; ';
 
-				if($rowSobrepuja[0] != $usuario ){
+			if($resultado = $conexion->query($sqlProducto)){
+				if($row = $resultado->fetch_array(MYSQLI_ASSOC)){	
 
-					if($conexion->query($sql)){				
-			
-						$sqlProducto = 'select * from productos where id ='.$producto.'; ';
-
-						if($resultado = $conexion->query($sqlProducto)){
-							if($row = $resultado->fetch_array(MYSQLI_ASSOC)){			
-								$descripcion = "<p class=notificacionPuja>¡Genial! Tu puja de <span>".$puja."€</span> para <span>".$row['titulo']."</span> ha sido aceptada.</p>";					
-								$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(3, '".$descripcion."',".$usuario.")";
-
-								if($conexion->query($sqlNoti)){
-									header('Location: '.URL_LOCAL.'/interna/notificaciones.php');
-								}else{
-									echo "3";
-								}	
-
-								$descripcion = "<p class=notificacionSobrepuja>Te han sobrepujado en: <span>".$row['titulo']."</span></p>";
-								$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(5, '".$descripcion."',".$rowSobrepuja[0].")";
-								if($conexion->query($sqlNoti)){
-									header('Location: '.URL_LOCAL.'/interna/notificaciones.php');
-								}else{
-									echo "3";
-								}
-
-							}else{
-								echo "2";
-							}
-						}else{
-							echo "1";
-						}
-						
+					$descripcion = "<p class=notificacionPuja>Tu puja de <span>".$puja."€</span> para <a href=".URL_LOCAL."solo.php?p=".$producto." ><span>".$row['titulo']."</span></a> ha sido aceptada.</p>";					
+					$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(3, '".$descripcion."',".$usuario.")";
+					if($conexion->query($sqlNoti)){
+						$descripcion = "<p class=notificacionSobrepuja>Te han sobrepujado en: <a href=".URL_LOCAL."solo.php?p=".$producto." ><span>".$row['titulo']."</span></a></p>";
+						$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(5, '".$descripcion."',".$maximoPujador.")";
+						if($conexion->query($sqlNoti)){
+							header('Location: '.URL_LOCAL.'/interna/notificaciones.php');
+						}						
 					}else{
-						echo "ERROR";
-					}
-
+						echo "3";
+					}	
+				}else{
+					echo "2";
 				}
-
+			}else{
+				echo "1";
 			}
-		}
-
-		
+			
+		}else{
+			echo "USUARIO IGUAL NO PUEDE PUJAR";
+		}	
 
 		$conexion->close();
 	}

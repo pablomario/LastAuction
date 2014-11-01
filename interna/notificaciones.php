@@ -1,6 +1,7 @@
 <?php
   session_start();
   require_once('../php/funciones.php');
+  limpieza();
   if(!isset($_SESSION['id_usuario'])){
       header('Location: ../subastas.php');
   }
