@@ -1,7 +1,7 @@
  <?php
 	require_once('conexion.php');	
 
-	define("URL_LOCAL","http://127.0.0.1/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
 
 
 
@@ -152,7 +152,7 @@
 		$conexion = conexion();
 		$fecha =  date("Y-m-d h:i");
   		$fechainicial=strtotime($fecha);
-  		$fechafin = $fechainicial + ($fechafin*3600);
+  		$fechafin = $fechainicial + ($fechafin*86400);
 		$sql = "insert into productos (titulo, descripcion, preciominimo, fechainicial, fechafin, estado, usuario, categoria) 
 		values('".$titulo."','".$descripcion."',".$preciominimo.",".$fechainicial.",".$fechafin.",1,".$usuario.",".$categoria.")";
 				
@@ -200,10 +200,13 @@
 	 * @return string           fecha fianl
 	 */
 	function seg2tiempo($segundos){	       
+		$segundos=($segundos-86400)-time();
 		$dias =  date('d', $segundos);
 		$horas =  date('H', $segundos);
 		$minutos =  date('i', $segundos);
    		$total = $dias."d ".$horas."h ".$minutos."m ";
+   		//$total=date("Y m d H i s",$segundos);
+   		//$total=$segundos;
 	    return "<span>Finaliza en: ".$total."</span>";
 	}
 
@@ -242,7 +245,7 @@
 	function listarSubastasU($idUsuario){
 		$conexion=conexion();		
   		$now=strtotime(date("Y-m-d h:i"));  		
-		$sql = 'select * from productos where estado > 0 and fechafin >'.$now.' and usuario != '.$idUsuario.' ;';
+		$sql = 'select * from productos where estado > 0 and fechafin >'.$now.' and usuario <> '.$idUsuario.' ;';
 		if($resultado = $conexion->query($sql)){
 			while ($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
 				switch ($row['categoria']) {
