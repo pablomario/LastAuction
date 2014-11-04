@@ -277,7 +277,8 @@
 				}			
 				echo '<div class="datosProducto">';
 				echo '<a href="solo.php?p='.$row['id'].'">'.$row['titulo'].'</a>';
-				echo '<p>'.$row['descripcion'].'</p>';
+				$descripcion = substr($row['descripcion'],0, 80);
+				echo '<p>'.$descripcion.' <a class="info" href="solo.php?p='.$row['id'].'">[+info]</a></p>';
 
 				$queryUsuario = 'select nombre from usuarios where id='.$row['usuario'].';';
 				if($resultadoUsuario =  $conexion->query($queryUsuario)){
@@ -341,7 +342,8 @@
 				}			
 				echo '<div class="datosProducto">';
 				echo '<a href="solo.php?p='.$row['id'].'">'.$row['titulo'].'</a>';
-				echo '<p>'.$row['descripcion'].'</p>';
+				$descripcion = substr($row['descripcion'],0, 80);
+				echo '<p>'.$descripcion.' <a class="info" href="solo.php?p='.$row['id'].'">[+info]</a></p>';
 
 				$queryUsuario = 'select nombre from usuarios where id='.$row['usuario'].';';
 				if($resultadoUsuario =  $conexion->query($queryUsuario)){
@@ -397,24 +399,28 @@
 					if($resultadoPrecio = $conexion->query($sqlPrecio)){
 						if($rowPrecio = $resultadoPrecio->fetch_array()){
 							
-							if($rowPrecio[1]!=$idUsuario){									
-								// miro que la ultima puja no sea del usuario que visualiza en este momento							
-								echo '<form action="interna/pujar.php" method="POST">';
-								echo '<input type="hidden" name="producto" value="'.$idProducto.'" > ';
-								echo '<input type="hidden" name="maximoPujador" value="'.$rowPrecio[1].'" > ';									
-								if($rowPrecio[0]!=null){								
-									echo '<input name="puja" type="number" min="'.($rowPrecio[0]+1).'" value="'.$rowPrecio[0].'">';
+							if($rowPrecio[1]!=$idUsuario){	
+
+								if($row[7]!=$idUsuario){
+									// miro que la ultima puja no sea del usuario que visualiza en este momento							
+									echo '<form action="interna/pujar.php" method="POST">';
+									echo '<input type="hidden" name="producto" value="'.$idProducto.'" > ';
+									echo '<input type="hidden" name="maximoPujador" value="'.$rowPrecio[1].'" > ';									
+									if($rowPrecio[0]!=null){								
+										echo '<input name="puja" type="number" min="'.($rowPrecio[0]+1).'" value="'.$rowPrecio[0].'">';
+									}else{
+										echo '<input name="puja" type="number" min="'.($row[6]+1).'" value="'.$row[6].'">';
+									}
+									echo '<input type="submit" value=" HACER OFERTA " class="boton">';
+									echo '</form>';
 								}else{
-									echo '<input name="puja" type="number" min="'.($row[6]+1).'" value="'.$row[6].'">';
-								}
-								echo '<input type="submit" value=" HACER OFERTA " class="boton">';
-								echo '</form>';
+									echo '<div class="aviso"><h2> Tu eres el Propietario </h2></div>';
+								}								
 							}else{
 								echo '<div class="aviso"><h2>Tu puja ya es la mas alta</h2></div>';
-							}
-							
+							}							
 						}						
-					}					
+					}	
 					
 				}else{
 					echo '<div class="aviso"><h2>Inicia sesion para realziar una oferta</h2></div>';
@@ -445,6 +451,24 @@
 			}
 			$conexion->close();
 		}
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////                           SUBASTAS USUARIO                                 ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+function misSubastas($idUsuario){
+		$conexion = conexion();
+		$sql = "select * from productos where usuario =".$idUsuario." ;";
+
+		if($resultado = $conexion->query($sql)){
+			while($row = $resultado->fetch_array(MYSQLI_ASSOC)){
+				echo "<p class='resultadoBusqueda'><a href=".URL_LOCAL."/solo.php?p=".$row['id'].">".$row['titulo']."</a></p>";
+			}
+		}
+		$conexion->close();
+	}
+
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -558,16 +582,18 @@
 			if($resultado = $conexion->query($sqlProducto)){
 				if($row = $resultado->fetch_array(MYSQLI_ASSOC)){	
 
-					$descripcion = "<p class=notificacionPuja>Tu puja de <span>".$puja."€</span> para <a href=".URL_LOCAL."solo.php?p=".$producto." ><span>".$row['titulo']."</span></a> ha sido aceptada.</p>";					
+					$descripcion = "<p class=notificacionPuja>Genial! Tu puja de ".$puja." para <a href=".URL_LOCAL."solo.php?p=".$producto." ><span>".$row['titulo']."</span></a> ha sido aceptada</p>";					
 					$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(3, '".$descripcion."',".$usuario.")";
 					if($conexion->query($sqlNoti)){
 						$descripcion = "<p class=notificacionSobrepuja>Te han sobrepujado en: <a href=".URL_LOCAL."solo.php?p=".$producto." ><span>".$row['titulo']."</span></a></p>";
 						$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(5, '".$descripcion."',".$maximoPujador.")";
 						if($conexion->query($sqlNoti)){
 							header('Location: '.URL_LOCAL.'/interna/notificaciones.php');
+						}else{
+							echo "FALLOOOO";
 						}						
 					}else{
-						echo "3";
+						echo "3".$sqlNoti;
 					}	
 				}else{
 					echo "2";

@@ -45,7 +45,7 @@
 				if (copy($_FILES['archivo']['tmp_name'], $nuevo_nombre)) {				
 					if(guardarImagen($idProducto,$nuevo_nombre)){
 						echo "<h2>TODO SALIO BIEN - Subasta creada</h2>";
-						header('Location: perfil.php');
+						header('Location: notificaciones.php');
 					}else{
 						echo "La que has liaooo pollitoooo";
 					}

@@ -14,12 +14,7 @@
 		<link rel="stylesheet" type="text/css" href="css/aside.css">
 		<link rel="stylesheet" type="text/css" href="css/estiloProductos.css">
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> 
-		<script src="js/funciones.js" type="text/javascript"></script>
-		<?php 
-			if(isset($_SESSION['id_usuario'])){
-				echo "<script>prueba_notificacion('".$_SESSION['nombre']."')</script>";
-			}
-		?>
+		
 	</head>
 	<body>
 		

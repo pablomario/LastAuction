@@ -38,6 +38,12 @@
 					<h2>Recuerda que puedes vender tus productos:</h2>
 					<a href="crearsubasta.php" class="boton">Crear subasta Ahora</a>					
 				</article>
+				<article>
+					<h2>Estas son todas tus Subastas:</h2>
+					<?php
+						misSubastas($_SESSION['id_usuario']);
+					?>
+				</article>
 
 			</section>			
 		</div>

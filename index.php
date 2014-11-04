@@ -28,7 +28,7 @@
 				?>				
 			</div>
 		</nav>
-		<header><!--NO BORRAR ESTA ETIQUETA --></header>
+		<header><!-- NO BORRAR ESTA ETIQUETA --></header>
 
 		<div class="centrado">
 			<!-- ASIDE -->

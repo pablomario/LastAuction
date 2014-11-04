@@ -8,7 +8,7 @@
 				echo '<input type="text" name="email" id="email" placeholder="email@email.com" />';
 				echo '<input type="password" name="password" id="password" placeholder="contraseña" />';
 				echo '<input type="submit" name="enviar" value="Iniciar Sesion" class="boton" />';
-				echo '<a href="">¿Todavia no tienes cuenta?</a>';
+				echo '<a href="'.URL_LOCAL.'registro.php">¿Todavia no tienes cuenta?</a>';
 			echo '</form>';
 			echo '</article>';
 		}
