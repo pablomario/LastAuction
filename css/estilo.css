@@ -163,18 +163,21 @@ section article p.resultadoBusqueda a{
 	display: inline-block;	
 }
 
-section article p.resultadoBusqueda a:hover{
-	padding: 17px;
+section article p.resultadoBusqueda a:hover{	
 	color: #4A9AEA;
-	text-decoration: underline;
-	margin-bottom: 10px;
+	text-decoration: underline;	
 }
 
 section article .vendedor a{
 	color: #888888;
+	font-size: 14px;
 	text-decoration: none;
 }
 
+section article .vendedor a:hover{
+	color: #4A9AEA;
+	text-decoration: underline;
+}
 
 footer{
 	float: left;	

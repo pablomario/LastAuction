@@ -34,16 +34,15 @@
 			<?php include('../aside.php');	?>
 			
 			<section>
-				<article class="aviso">
-					<h2>Recuerda completar tu perfil:</h2>
-					<a href="editarperfil.php" class="boton">Completar Ahora</a>					
-				</article>
-				<article>
-					<h2>Estas son todas tus Subastas:</h2>
-					<?php
-						misSubastas($_SESSION['id_usuario']);
-					?>
-				</article>
+				<h2>Completar mi perfil</h2>
+				<form action="completar.php" method="POST" ENCTYPE="multipart/form-data" class="datos">													
+					Telefono / WhatsApp: <br>
+					<input type="number" name="telefono" placeholder="666112233" required/> <br>				
+					     
+					Imagen de Perfil: <br>
+					<input type="file" name="archivo" > <br>
+					<input class="boton" type="submit" name="enviar" value="Completar!" />
+				</form> 
 
 			</section>			
 		</div>

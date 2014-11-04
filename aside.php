@@ -1,7 +1,7 @@
 <aside>				
 	<?php
 		if(isset($_SESSION['id_usuario'])){
-			cuadroPerfil($_SESSION['nombre']);
+			cuadroPerfil($_SESSION['id_usuario']);
 		}else{		 
 			echo '<article class=perfil>';      
 			echo '<form action="login.php" method="POST">';

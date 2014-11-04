@@ -1,7 +1,7 @@
  <?php
 	require_once('conexion.php');	
 
-	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/lastauction/");
 
 
 
@@ -80,6 +80,21 @@
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
+/////////                         COMPLETAR PERFIL USUARIO                           ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+	function completarPerfil($idUsuario, $telefono, $imagen){
+		$conexion = conexion();
+		$sql = "update usuarios set telefono = ".$telefono.", imagen = '".$imagen."' where id =".$idUsuario."; ";		
+		if($conexion->query($sql)){
+			return true;
+		}else{
+			return false;
+		}
+		$conexion->close();
+	}
+
+/////////////////////////////////////////////////////////////////////////////////////////////
 /////////                        PERFIL PUBLICO DE USUARIO                           ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -109,10 +124,25 @@
 	 * @return HTML          Crea estructura HTML con imagen de perfil y enlace
 	 */
 	function cuadroPerfil($usuario){
-		echo '<article class="perfil">';					
-		echo '<a href="'.URL_LOCAL.'interna/perfil.php"><img src="'.URL_LOCAL.'usuarios/default.jpg"></a>';
-		echo '<p><a href="'.URL_LOCAL.'interna/perfil.php">¡Hola <span>'.$usuario.'</span>!</a></p>';
-		echo '</article>';	
+			
+		$conexion = conexion();
+		$sql = 'select nombre, imagen from usuarios where id ='.$usuario.';';
+		if($resultado = $conexion->query($sql)){
+			if($row = $resultado->fetch_array()){
+				echo '<article class="perfil">';	
+				if($row[1]!=null){
+					$urlImagen = substr($row[1], 2);					
+					echo '<a href="'.URL_LOCAL.'interna/perfil.php"><img src="'.URL_LOCAL.$urlImagen.'"></a>';
+				}else{
+					echo '<a href="'.URL_LOCAL.'interna/perfil.php"><img src="'.URL_LOCAL.'usuarios/default.jpg"></a>';
+				}				
+				echo '<p><a href="'.URL_LOCAL.'interna/perfil.php">¡Hola <span>'.$row[0].'</span>!</a></p>';
+				echo '</article>';
+			}
+		}
+
+
+		$conexion->close();
 	}
 
 	/**
