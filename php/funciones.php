@@ -590,16 +590,16 @@ function misSubastas($idUsuario){
 						if($conexion->query($sqlNoti)){
 							header('Location: '.URL_LOCAL.'/interna/notificaciones.php');
 						}else{
-							echo "FALLOOOO";
+							header('Location: '.URL_LOCAL.'/interna/notificaciones.php');
 						}						
 					}else{
-						echo "3".$sqlNoti;
+						header('Location: '.URL_LOCAL.'/interna/notificaciones.php');
 					}	
 				}else{
-					echo "2";
+					header('Location: '.URL_LOCAL.'/interna/notificaciones.php');
 				}
 			}else{
-				echo "1";
+				header('Location: '.URL_LOCAL.'/interna/notificaciones.php');
 			}
 			
 		}else{
