@@ -1,7 +1,7 @@
  <?php
 	require_once('conexion.php');	
 
-	define("URL_LOCAL","http://127.0.0.1/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
 
 
 
@@ -164,7 +164,8 @@
 	 */
 	function categorias(){
 		echo '<article>';
-			echo '<h2>Categorías</h2>';					
+			echo '<h2>Categorías</h2>';			
+			echo '<a href="'.URL_LOCAL.'resultado.php?c=6"><div class="menuVertical mascotas">Mascotas</div></a><br>';		
 			echo '<a href="'.URL_LOCAL.'resultado.php?c=1"><div class="menuVertical casa">Casa y Jardin</div></a><br>';
 			echo '<a href="'.URL_LOCAL.'resultado.php?c=2"><div class="menuVertical joyeria">Joyeria y Relojes</div></a><br>';
 			echo '<a href="'.URL_LOCAL.'resultado.php?c=3"><div class="menuVertical moda">Moda y Accesorios</div></a><br>';
@@ -650,7 +651,11 @@ function misSubastas($idUsuario){
 
 		if($resultado = $conexion->query($sql)){
 			while($row = $resultado->fetch_array(MYSQLI_ASSOC)){
-				echo "<p class='resultadoBusqueda'><a href=".URL_LOCAL."/solo.php?p=".$row['id'].">".$row['titulo']."</a></p>";
+				echo "<article class='resultadoBusqueda'>";
+				echo "<p><a href=".URL_LOCAL."/solo.php?p=".$row['id'].">".$row['titulo']."</a></p>";				
+				$descripcion = substr($row['descripcion'],0, 100);
+				echo '<p>'.$descripcion.'</p>';
+				echo "</article>";
 			}
 		}
 		$conexion->close();
@@ -662,7 +667,11 @@ function misSubastas($idUsuario){
 
 		if($resultado = $conexion->query($sql)){
 			while($row = $resultado->fetch_array(MYSQLI_ASSOC)){
-				echo "<p class='resultadoBusqueda'><a href=".URL_LOCAL."/solo.php?p=".$row['id'].">".$row['titulo']."</a></p>";
+				echo "<article class='resultadoBusqueda'>";
+				echo "<p><a href=".URL_LOCAL."/solo.php?p=".$row['id'].">".$row['titulo']."</a></p>";
+				$descripcion = substr($row['descripcion'],0, 100);
+				echo '<p>'.$descripcion.'</p>';
+				echo "</article>";
 			}
 		}
 		$conexion->close();

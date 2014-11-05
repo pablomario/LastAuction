@@ -43,6 +43,7 @@
 						<textarea  name="descripcion" id="descripcion" placeholder="descripcion" required></textarea> <br>
 						Categoria: <br>
 						<select name="categoria" required>
+							<option value="6">Mascotas</option>
 							<option value="1">Casa y Jardin</option>
 							<option value="2">Joyeria y Relojes</option>
 							<option value="3">Moda y Accesorios</option>

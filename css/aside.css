@@ -57,16 +57,20 @@ aside a div{
 	text-decoration: none;
 }
 
+aside div.mascotas{
+	background: #ffca09;
+}
+
 aside div.casa{
-	background: #8ec63e;
+	background: #7DDA29;
 }
 
 aside div.joyeria{
-	background: #7c51a2;
+	background: #7d51a2;
 }
 
 aside div.moda{
-	background: #d51a79;
+	background: #ef0d6e;
 }
 
 aside div.deporte{
@@ -74,7 +78,7 @@ aside div.deporte{
 }
 
 aside div.electronica{
-	background: #f68122;
+	background: #f68121;
 }
 
 /* ASIDE FIN MENU */

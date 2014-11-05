@@ -1,16 +1,4 @@
 
-
-
-section article form{
-	padding: 10px;
-}
-
-section article form input, textarea, select{
-	display: block;
-	margin-bottom:10px;
-	padding: 5px;
-}
-
 article p{
 	color: #272822;
 }
@@ -44,8 +32,6 @@ article p.notificacionSobrepuja{
 	margin: 5px;
 	background: #FEBC34;	
 }
-
-
 
 article p span{
 	font-weight: bold;

@@ -62,9 +62,9 @@ nav{
 	height: 70px;	
 	z-index: 9999;
 	position: fixed;
-	background: rgba(255,255,255,0.9);	
+	background: rgba(255,255,255,1);	
 	padding-top: 3px;
-	box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.32);
+	box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.32);	
 }
 
 nav #logotipo{
@@ -73,7 +73,7 @@ nav #logotipo{
 
 nav ul{
 	float: right;
-	padding: 25px;
+	padding: 23px;
 }
 
 nav ul li{		
@@ -82,15 +82,15 @@ nav ul li{
 }
 
 nav ul a{
-	padding: 7px;	
-	color: #999;
-	margin-left: 20px;	
+	padding: 26px 15px 25px 15px;	
+	color: #626262;		
 	text-decoration: none;
 	text-transform: uppercase;	
 }
 
 nav ul a:hover{
-	color: #00c9ff;	
+	color: #fff;	
+	background: #21C7FE;
 }
 
 nav ul .salir:hover{
@@ -139,6 +139,16 @@ section article form.datos input{
 	display: block;
 }
 
+section article form{
+	padding: 10px;
+}
+
+section article form input, textarea, select{
+	display: block;
+	margin-bottom:10px;
+	padding: 5px;
+}
+
 section article form.datos input[type="submit"]{
 	width: 92%;
 }
@@ -156,14 +166,20 @@ section article.ultimosProductos img:hover{
 	opacity: 1;
 }
 
-section article p.resultadoBusqueda a{
-	padding: 10px;
+section article .resultadoBusqueda{	
+	border-bottom: 1px solid #E9E9E9;
+	padding: 5px 5px 15px 5px;
+}
+
+section article .resultadoBusqueda a{	
+	font-size: 30px;
+	text-transform: uppercase;
 	color: #4A9AEA;
 	text-decoration: none;
 	display: inline-block;	
 }
 
-section article p.resultadoBusqueda a:hover{	
+section article .resultadoBusqueda a:hover{	
 	color: #4A9AEA;
 	text-decoration: underline;	
 }
