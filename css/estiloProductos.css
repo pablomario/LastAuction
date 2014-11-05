@@ -47,6 +47,10 @@ section article .datosProducto .vendedor{
 	color: #888888;
 }
 
+section article.mascotas{
+	border-left: 4px solid #ffca09;
+}
+
 section article.casa{
 	border-left: 4px solid #8ec63e;
 }

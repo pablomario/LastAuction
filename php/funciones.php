@@ -295,6 +295,9 @@
 					case 5:
 						echo '<article class="electronica">';
 						break;
+					case 6:
+						echo '<article class="mascotas">';
+						break;
 					default:
 						echo '<article>';
 						break;
@@ -359,6 +362,9 @@
 						break;
 					case 5:
 						echo '<article class="electronica">';
+						break;
+					case 6:
+						echo '<article class="mascotas">';
 						break;
 					default:
 						echo '<article>';
