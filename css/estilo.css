@@ -11,6 +11,10 @@ body{
 	background: #EAEAEA;
 }
 
+.limpio{
+	clear: both;
+}
+
 .centrado{	
 	margin: 0 auto;
 	width: 960px;	
@@ -152,6 +156,24 @@ section article form input, textarea, select{
 section article form.datos input[type="submit"]{
 	width: 92%;
 }
+
+section article.perfilPublico{
+	margin: 10px auto;	
+}
+
+section article.perfilPublico img{
+	height: 140px;
+	width: 140px;
+	display: inline;
+	margin: 10px;
+	float: right;
+}
+
+section article.perfilPublico p{
+	font-size: 20px;
+	padding: 5px;	
+}
+
 
 section article.ultimosProductos img{
 	height: 140px;

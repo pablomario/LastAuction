@@ -35,10 +35,16 @@
 			<?php include('aside.php');	?>
 
 			<section>
-				<article>
+				<article class="perfilPublico">
 					<h2>Perfil Publico</h2>
-						<?php datosUsuario($idUsuario) ?>
-				</article>				
+						<?php perfilPublico($idUsuario) ?>
+						<div class="limpio"></div>
+						
+				</article>		
+				<article class="ultimosProductos">
+					<h2>Mas de este Usuario</h2>
+					<?php masDelUsuario($idUsuario); ?>
+				</article>		
 			</section>			
 		</div>
 

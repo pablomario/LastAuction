@@ -12,21 +12,19 @@
 
 	/**
 	 * [identificarUsuario description]
-	 * @param  string $email    email de el usuario
-	 * @param  string $password contraseña de el usario se compara en md5
-	 * @return boolean           
+	 * Funcion para validar un usuario en el sistema (hacer login)
+	 * @param  [type] $email    [description]
+	 * @param  [type] $password [description]
+	 * @return [type]           [description]
 	 */
 	function identificarUsuario($email, $password){
 		$conexion = conexion();
 		$password = md5($password);
 		$sql = "select count(*), id, nombre, direccion from usuarios where email = '".$email."' and contrasena = '".$password."';";
 		
-		if($resultado = $conexion->query($sql)){
-			echo "mal 1";				
-			if($row = $resultado->fetch_array()){
-				echo "mal 2";
-				if($row[0]==1){
-					echo "mal 3";						
+		if($resultado = $conexion->query($sql)){						
+			if($row = $resultado->fetch_array()){				
+				if($row[0]==1){											
 					session_start();
 					$_SESSION['id_usuario'] = $row[1];
 					$_SESSION['nombre'] = $row[2];
@@ -45,14 +43,14 @@
 		$conexion->close();
 	}
 
-
 	/**
 	 * [registroUsuario description]
-	 * @param  string $usuario   nombre de usuario
-	 * @param  string $email     email de el usuario
-	 * @param  string $direccion direccion completa del usuario
-	 * @param  string $password  contraseña
-	 * @return boolean           
+	 * Funcion para registrar un nuevo usuario en el sistema
+	 * @param  [type] $usuario   [description]
+	 * @param  [type] $email     [description]
+	 * @param  [type] $direccion [description]
+	 * @param  [type] $password  [description]
+	 * @return [type]            [description]
 	 */
 	function registroUsuario($usuario, $email, $direccion, $password){		
 		$conexion = conexion();
@@ -83,6 +81,14 @@
 /////////                         COMPLETAR PERFIL USUARIO                           ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * [completarPerfil description]
+	 * Esta funcion almacena el telefono de contacto y foto de perfil
+	 * @param  [type] $idUsuario [description]
+	 * @param  [type] $telefono  [description]
+	 * @param  [type] $imagen    [description]
+	 * @return [type]            [description]
+	 */
 	function completarPerfil($idUsuario, $telefono, $imagen){
 		$conexion = conexion();
 		$sql = "update usuarios set telefono = ".$telefono.", imagen = '".$imagen."' where id =".$idUsuario."; ";		
@@ -98,16 +104,45 @@
 /////////                        PERFIL PUBLICO DE USUARIO                           ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-	function datosUsuario($idUsuario){
+	/**
+	 * [perfilPublico description]
+	 * funcion para enseñar los datos del perfil publico al resto de los usuarios
+	 * @param  [type] $idUsuario [description]
+	 * @return [type]            [description]
+	 */
+	function perfilPublico($idUsuario){
 		$conexion = conexion();
-
-		$sql ='select nombre, direccion, email from usuarios where id ='.$idUsuario.';';
+		$sql ='select nombre, direccion, email, imagen from usuarios where id ='.$idUsuario.';';
 
 		if($resultado = $conexion->query($sql)){
-			while($row = $resultado->fetch_array()){				
-				echo 'Nombre: '.$row[0].'<br>';
-				echo 'Direccion: '.$row[1].'<br>';
-				echo 'email: '.$row[2].'<br>';
+			while($row = $resultado->fetch_array()){
+				if($row[3]!=null){
+					$urlImagen = substr($row[3], 2);					
+					echo '<a href="'.URL_LOCAL.'interna/perfil.php"><img src="'.URL_LOCAL.$urlImagen.'"></a>';
+				}else{
+					echo '<a href="'.URL_LOCAL.'interna/perfil.php"><img src="'.URL_LOCAL.'usuarios/default.jpg"></a>';
+				}				
+				echo '<p>'.$row[0].'</p>';
+				echo '<p>'.$row[1].'</p>';
+				echo '<p>'.$row[2].'</p>';
+			}
+		}
+		$conexion->close();
+	}
+
+	/**
+	 * [masDelUsuario description]
+	 * Muestra los 4 ultimos productos puestos en subasta por el usuario
+	 * @param  [type] $idUsuario [description]
+	 * @return [type]            [description]
+	 */
+	function masDelUsuario($idUsuario){
+		$conexion = conexion();
+		$sql = 'select a.id, a.titulo, b.imagen from productos a, imagenes b where a.id = b.producto and a.usuario = '.$idUsuario.' and a.estado = 1 order by a.id desc limit 4';
+		if($resultado = $conexion->query($sql)){
+			while($row = $resultado->fetch_array()){
+				$urlImagen = substr($row[2], 1);				
+				echo '<p><a href='.URL_LOCAL.'/solo.php?p='.$row[0].'><img src='.$urlImagen.'></a></p>';
 			}
 		}
 		$conexion->close();
@@ -120,11 +155,12 @@
 
 	/**
 	 * [cuadroPerfil description]
-	 * @param  integer $usuario se recive el id de usuario para crear su cuadro personalizado
-	 * @return HTML          Crea estructura HTML con imagen de perfil y enlace
+	 * Funcion que crea un cuadro con la imagen y enlace del perfil del usuario, sirve como
+	 * acceso a la pagina perfil del usuario
+	 * @param  [type] $usuario [description]
+	 * @return [type]          [description]
 	 */
-	function cuadroPerfil($usuario){
-			
+	function cuadroPerfil($usuario){			
 		$conexion = conexion();
 		$sql = 'select nombre, imagen from usuarios where id ='.$usuario.';';
 		if($resultado = $conexion->query($sql)){
@@ -147,7 +183,8 @@
 
 	/**
 	 * [buscador description]
-	 * @return [type] Crear estructura del Buscador
+	 * Funcion que crea un cuadro de texto para poder realizar busquedas por palabras
+	 * @return [type] [description]
 	 */
 	function buscador(){
 		echo '<article class="busqueda">';					
@@ -160,7 +197,8 @@
 
 	/**
 	 * [categorias description]
-	 * @return [type] Crea estructura HTML paa busca por categorias
+	 * Funcion que lista todas las Cateogiras disponibles.
+	 * @return [type] [description]
 	 */
 	function categorias(){
 		echo '<article>';
@@ -179,6 +217,18 @@
 /////////                      FUNCIONES CREACION SUBASTA                            ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * [crearSubasta description]
+	 * Funcion crea una nueva subata  almacena los datos del producto en la base de datos
+	 * ademas crea la notificacione de subasta creada
+	 * @param  [type] $usuario      [description]
+	 * @param  [type] $titulo       [description]
+	 * @param  [type] $descripcion  [description]
+	 * @param  [type] $preciominimo [description]
+	 * @param  [type] $fechafin     [description]
+	 * @param  [type] $categoria    [description]
+	 * @return [type]               [description]
+	 */
 	function crearSubasta($usuario, $titulo, $descripcion, $preciominimo, $fechafin, $categoria){
 		$conexion = conexion();
 		$fecha =  date("Y-m-d h:i");
@@ -191,23 +241,27 @@
 			if($resultado = $conexion->query("select LAST_INSERT_ID()")){				
 				if($row=$resultado->fetch_array()){
 					$idProducto = $row[0];
-					$descripcion = "Tus subasta <span>".$titulo."</span> se ha creado correctamente.";					
+					$descripcion = "<p class='subastaCreada'>Tus subasta <span>".$titulo."</span> se ha creado correctamente.</p>";					
 					$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(4, '".$descripcion."',".$usuario.")";
 					if($conexion->query($sqlNoti)){
 						header('Location: '.URL_LOCAL.'/solo.php?p='.$producto);
-					}else{
-						echo "3";
 					}					
 					return $idProducto;
 				}
 			}			
-		}else{
-			echo "ERROR!";
+		}else{			
 			return 0;
 		}
 		$conexion->close();
 	}
 
+	/**
+	 * [guardarImagen description]
+	 * Funcion que almacena en la base de datos la url de la imagen de un producto
+	 * @param  [type] $idProducto [description]
+	 * @param  [type] $imagen     [description]
+	 * @return [type]             [description]
+	 */
 	function guardarImagen($idProducto,$imagen){
 		$conexion = conexion();
 		$sql = "insert into imagenes (producto,imagen) values('".$idProducto."','".$imagen."')";
@@ -227,17 +281,16 @@
 
 	/**
 	 * [seg2tiempo description]
-	 * @param  integer $segundos entra segundo
-	 * @return string           fecha fianl
+	 * Funcion que regresa una cadena con el tiempo para la finalizacion de una subasta
+	 * @param  [type] $segundos [description]
+	 * @return [type]           [description]
 	 */
 	function seg2tiempo($segundos){	       
 		$segundos=($segundos-86400)-time();
 		$dias =  date('d', $segundos);
 		$horas =  date('H', $segundos);
 		$minutos =  date('i', $segundos);
-   		$total = $dias."d ".$horas."h ".$minutos."m ";
-   		//$total=date("Y m d H i s",$segundos);
-   		//$total=$segundos;
+   		$total = $dias."d ".$horas."h ".$minutos."m ";   		
 	    return "<span>Finaliza en: ".$total."</span>";
 	}
 
@@ -245,6 +298,11 @@
 /////////                              MENU SUPERIOR                                 ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * [menuLogeado description]
+	 * Muestra un menu vertical con las opciones de navegacion para usuarios registrados
+	 * @return [type] [description]
+	 */
 	function menuLogeado(){
 		echo '<a href="'.URL_LOCAL.'index.php"><img id="logotipo" src="'.URL_LOCAL.'img/logomini.png" alt="last auction"></a>';
 		echo '<ul>';
@@ -255,6 +313,11 @@
 		echo '</ul>';
 	}
 
+	/**
+	 * [menuNoLogeado description]
+	 * muestra un menu vertical sin opciones para usuarios no registrados
+	 * @return [type] [description]
+	 */
 	function menuNoLogeado(){
 		echo '<a href="'.URL_LOCAL.'index.php"><img id="logotipo" src="img/logomini.png" alt="last auction"></a>';
 		echo '<ul>';
@@ -269,9 +332,10 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * [listarSubastas description]
-	 * @param  entero $idUsuario identificador de usuario
-	 * @return none            crea estructura HTML
+	 * [listarSubastasU description]
+	 * Muestra todas las subastas activas en el sistema ignorando las propias del usuario
+	 * @param  [type] $idUsuario [description]
+	 * @return [type]            [description]
 	 */
 	function listarSubastasU($idUsuario){
 		$conexion=conexion();		
@@ -338,8 +402,9 @@
 	}
 
 	/**
-	 * [listarSubastas description]	 *
-	 * @return [type]            [description]
+	 * [listarSubastas description]
+	 * Muestra todas las subastas disponibles en este momento
+	 * @return [type] [description]
 	 */
 	function listarSubastas(){
 		$conexion=conexion();		
@@ -405,15 +470,16 @@
 		$conexion->close();
 	}
 
-		/**
-		 * listarProducto, funcion que crea estructura HTML teniendo en cuenta si el usuario ha inciado sesion
-		 * o no, si esl usuario esta registrado en el sistema se dara la opcion de realizar una puja siempre y cuando
-		 * la ultima puja no sea del mismo usuario.
-		 * @param  entero $idProducto id del producto a visualizar
-		 * @param  boleano $estado     parametro para saber si el usuario esta logeado o no
-		 * @param  entero $idUsuario  identificador del usuario
-		 * @return HTML             crea estructura HTML
-		 */
+	/**
+	 * [listarProducto description]
+	 * funcion que crea estructura HTML teniendo en cuenta si el usuario ha inciado sesion
+	 * o no, si esl usuario esta registrado en el sistema se dara la opcion de realizar una puja siempre y cuando
+	 * la ultima puja no sea del mismo usuario.
+	 * @param  [type] $idProducto [description]
+	 * @param  [type] $estado     [description]
+	 * @param  [type] $idUsuario  [description]
+	 * @return [type]             [description]
+	 */
 	function listarProducto($idProducto, $estado, $idUsuario){
 		$conexion = conexion();
 		$sql ='select a.id, a.titulo, a.descripcion, a.fechafin, c.nombre,  b.imagen , a.preciominimo , c.id ';		 
@@ -465,35 +531,43 @@
 				echo '<p class="descripcion">'.$row[2].'</p>';	
 				echo '</article>';
 			}else{
-				echo "NOOOOO";
+				//echo "NOOOOO";
 			}
 		}else{
-			echo "noooooo x 2";
+			//echo "noooooo x 2";
 		}
 		$conexion->close();
 	}
 
 	/**
 	 * [ultimosProductos description]
-	 * @return [type] Crea estructura HTML mostrando las ultimas 16 subtas creadas
+	 * Crea estructura HTML mostrando las ultimas 16 subtas creadas
+	 * @return [type] [description]
 	 */
-		function ultimosProductos(){
-			$conexion = conexion();
-			$sql = 'select a.id, a.titulo, b.imagen from productos a, imagenes b where a.id = b.producto and a.estado = 1 order by a.id desc limit 12';
-			if($resultado = $conexion->query($sql)){
-				while($row = $resultado->fetch_array()){
-					$urlImagen = substr($row[2], 1);				
-					echo '<p><a href='.URL_LOCAL.'/solo.php?p='.$row[0].'><img src='.$urlImagen.'></a></p>';
-				}
+	function ultimosProductos(){
+		$conexion = conexion();
+		$sql = 'select a.id, a.titulo, b.imagen from productos a, imagenes b where a.id = b.producto and a.estado = 1 order by a.id desc limit 12';
+		if($resultado = $conexion->query($sql)){
+			while($row = $resultado->fetch_array()){
+				$urlImagen = substr($row[2], 1);				
+				echo '<p><a href='.URL_LOCAL.'/solo.php?p='.$row[0].'><img src='.$urlImagen.'></a></p>';
 			}
-			$conexion->close();
 		}
+		$conexion->close();
+	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                           SUBASTAS USUARIO                                 ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-function misSubastas($idUsuario){
+	/**
+	 * [misSubastas description]
+	 * Funcion que muestra las subastas creadas por el usuario sin importar
+	 * el estado de las mismas
+	 * @param  [type] $idUsuario [description]
+	 * @return [type]            [description]
+	 */
+	function misSubastas($idUsuario){
 		$conexion = conexion();
 		$sql = "select * from productos where usuario =".$idUsuario." ;";
 
@@ -507,22 +581,22 @@ function misSubastas($idUsuario){
 
 
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                                 DISPARADOR                                 ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-// 0 - Subasta terminada
-// 1 - Subasta Activa -> AL CREAR LA SUBASTA
-// 2 - Subata vendida	
-// 3 - Puja Aceptada
+	// 0 - Subasta terminada
+	// 1 - Subasta Activa -> AL CREAR LA SUBASTA
+	// 2 - Subata vendida	
+	// 3 - Puja Aceptada
 
 	/**
+	 * [limpieza description]
 	 * DISPARADOR PARA NOTIFICACIONES Y SUBASTAS
 	 * Cambio el estado de las subastas para que no se visualicen si han terminado
 	 * y creo las notificaciones de subasta terminada con pujas (vendida) o
 	 * subata terminada sin pujas (finalizada)
-	 * @return nada nada
+	 * @return [type] [description]
 	 */
 	function limpieza(){
 		$conexion = conexion();		
@@ -552,7 +626,6 @@ function misSubastas($idUsuario){
 				}
 			}
 		}
-
 		// LA SUBASTA HA TERMINADO PERO NO TIENE PUJAS (CAMBIAR A ESTADO 0)
 		$sql = 'SELECT * FROM productos where fechafin < '.$now.' and estado = 1 ';
 		if($resultado = $conexion->query($sql)){
@@ -576,16 +649,20 @@ function misSubastas($idUsuario){
 /////////                              NOTIFICACIONES                                ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-// 0 - Subasta terminada
-// 1 - Subasta Activa -> AL CREAR LA SUBASTA
-// 2 - Subata vendida	
-// 3 - Puja Aceptada
-// 4 - Subasta Creada
-// 5 - Sobre puja
+	// 0 - Subasta terminada
+	// 1 - Subasta Activa -> AL CREAR LA SUBASTA
+	// 2 - Subata vendida	
+	// 3 - Puja Aceptada
+	// 4 - Subasta Creada
+	// 5 - Sobre puja
 
-
-	// CAMBIAR LAS NOTIFICACIONES A CADA UNA CON SU CLASE
-		function subastaCreada($idUsuario){
+	/**
+	 * [notificaciones description]
+	 * notificaciones funcion que muestra las notificaciones del usuario
+	 * @param  [type] $idUsuario [description]
+	 * @return [type]            [description]
+	 */
+	function notificaciones($idUsuario){
 		$conexion = conexion();
 		$sql = 'select id, tipo, descripcion from notificaciones where usuario ='.$idUsuario.' order by id desc';
 		if($resultado = $conexion->query($sql)){
@@ -593,7 +670,6 @@ function misSubastas($idUsuario){
 				echo $row['descripcion'];
 			}
 		}
-
 		$conexion->close();
 	}
 
@@ -602,11 +678,14 @@ function misSubastas($idUsuario){
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * [Pujar funcion que inserta las pujas en la base de datos]
-	 * @param  entero $producto ID del producto
-	 * @param  entero $puja     cantidad a pujar
-	 * @param  entero $usuario  ID del usuario pujador
-	 * @return HTML           esctructura HTML
+	 * [pujar description]
+	 * funcion para realizar pujas sobre un producto, ademas crea las diferentes notificaciones
+	 * como puja aceptada y el aviso de sobrepuja al usuario sobrepujado.
+	 * @param  [type] $producto      [description]
+	 * @param  [type] $puja          [description]
+	 * @param  [type] $usuario       [description]
+	 * @param  [type] $maximoPujador [description]
+	 * @return [type]                [description]
 	 */
 	function pujar($producto, $puja, $usuario, $maximoPujador){
 		$conexion = conexion();				
@@ -651,6 +730,13 @@ function misSubastas($idUsuario){
 /////////                         BUSCADOR - BUSQUEDAS                               ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * [buscar description]
+	 * buscar funcion que busca la palabra entre los nombres de las subastas y muestra
+	 * el resultado como enlaces a los articulos
+	 * @param  [type] $palabra [description]
+	 * @return [type]          [description]
+	 */
 	function buscar($palabra){
 		$conexion = conexion();
 		$sql = "select * from productos where titulo like '%".$palabra."%' and estado = 1 ;";
@@ -667,6 +753,13 @@ function misSubastas($idUsuario){
 		$conexion->close();
 	}
 
+	/**
+	 * [buscarCategoria description]
+	 * buscarCategoria similar a la anterior pero realiza la busqueda por el campo categoria
+	 * de cada producto, muestra el resultado en enlaces.
+	 * @param  [type] $categoria [description]
+	 * @return [type]            [description]
+	 */
 	function buscarCategoria($categoria){
 		$conexion = conexion();
 		$sql = "select * from productos where categoria =".$categoria." ;";

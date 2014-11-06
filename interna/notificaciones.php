@@ -37,11 +37,8 @@
 			<section>
 				<h2>Notificaciones</h2>
 				<article> 
-					<?php
-						//notificacionPuja($_SESSION['id_usuario']);
-						//notificacionCompra($_SESSION['id_usuario']);
-						//notificacionCaducada($_SESSION['id_usuario']);
-						subastaCreada($_SESSION['id_usuario']);
+					<?php						
+						notificaciones($_SESSION['id_usuario']);
 					?>       
 				</article> 
 			</section>			
