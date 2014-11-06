@@ -1,9 +1,13 @@
 <?php
 	session_start();
 	require_once('php/funciones.php');
-	$palabra = $_POST['palabra'];
-	$categoria = $_GET['c'];
-	
+
+	if(isset($_POST['palabra'])){
+		$palabra =$_POST['palabra'];		
+	}	
+	if(isset($_GET['c'])){
+		$categoria = $_GET['c'];
+	}	
 ?>
 
 <!DOCTYPE html>
