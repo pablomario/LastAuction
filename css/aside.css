@@ -58,11 +58,11 @@ aside a div{
 }
 
 aside div.mascotas{
-	background: #ffca09;
+	background: #ffca08;
 }
 
 aside div.casa{
-	background: #7DDA29;
+	background: #8ec63f;
 }
 
 aside div.joyeria{
@@ -97,13 +97,13 @@ aside article.perfil{
 aside article.perfil img{
 	height: 140px;
 	width: 140px;
-	
+	/*
 	border-top: 5px solid #8ec63e;
 	border-left: 5px solid #d51a79;
 	border-right: 5px solid #01abe6;
 	border-bottom: 5px solid #f68122;
-
-	border-radius: 50%;
+	*/
+	border-radius: 100%;	
 	text-align: center;
 }
 
