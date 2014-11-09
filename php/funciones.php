@@ -1,6 +1,6 @@
  <?php
 	
-	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/lastauction/");
 
 
 
@@ -15,7 +15,7 @@
 	 * @return [type] [description]
 	 */
 	function conexion(){		
-		$conexion = new mysqli("127.0.0.1","root","root","lastauction");
+		$conexion = new mysqli("127.0.0.1","root","","lastauction");
 		if(mysqli_connect_errno()){
 			die("Error: " .mysqli_connect_errno());
 		}
