@@ -60,7 +60,7 @@
 							<option value="30">30 dias</option>
 							<option value="60">60 dias</option>           
 						</select><br>     
-						Imagen prodcuto: <br>
+						Imagen prodcuto: *.jpg *.gif *.png<br>
 						<input type="file" name="archivo" > <br>
 						<input class="boton" type="submit" name="enviar" value="Publicar Producto" />
 					</form>        
