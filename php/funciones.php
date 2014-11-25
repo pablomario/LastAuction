@@ -3,8 +3,6 @@
 	define("URL_LOCAL","http://127.0.0.1/lastauction/");
 
 
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                                 CONEXION                                   ////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,6 +19,19 @@
 		}
 		return $conexion;
 	}
+
+
+	function noXSS($cadena){
+		$tofind = utf8_decode("><");
+		$replac = "  ";
+		$cadena = strtr($cadena,$tofind,$replac);
+		return $cadena;
+	}
+
+
+
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                      LOGIN Y REGISTRO USUARIOS                             ////////
@@ -254,18 +265,20 @@
 			if($resultado = $conexion->query("select LAST_INSERT_ID()")){				
 				if($row=$resultado->fetch_array()){
 					$idProducto = $row[0];
-					$descripcion = "<p class='subastaCreada'>Tus subasta <span>".$titulo."</span> se ha creado correctamente.</p>";					
+					$descripcion = "<p class=subastaCreada>Tus subasta <span>".$titulo."</span> se ha creado correctamente.</p>";					
 					$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(4, '".$descripcion."',".$usuario.")";
 					if($conexion->query($sqlNoti)){
-						header('Location: '.URL_LOCAL.'/solo.php?p='.$producto);
-					}					
-					return $idProducto;
+						$conexion->close();		
+						return $idProducto;
+					}
+					
 				}
 			}			
-		}else{			
+		}else{		
+			$conexion->close();	
 			return 0;
 		}
-		$conexion->close();
+		
 	}
 
 	/**
@@ -379,9 +392,9 @@
 				}
 				$queryImagen = "select * from imagenes where producto = ".$row['id']." ";
 				if($resultadoImagen = $conexion->query($queryImagen)){
-					while($rowImagen = $resultadoImagen->fetch_array(MYSQLI_ASSOC)){
+					while($rowImagen = $resultadoImagen->fetch_array(MYSQLI_ASSOC)){					
 						$urlImagen = substr($rowImagen['imagen'], 1);						
-						echo '<a href="solo.php?p='.$row['id'].'"><img src='.$urlImagen.' /></a>';
+						echo '<a href="solo.php?p='.$row['id'].'"><img src='.$urlImagen.' /></a>';						
 					}
 				}			
 				echo '<div class="datosProducto">';
@@ -447,10 +460,10 @@
 						break;
 				}
 				$queryImagen = "select * from imagenes where producto = ".$row['id']." ";
-				if($resultadoImagen = $conexion->query($queryImagen)){
+				if($resultadoImagen = $conexion->query($queryImagen)){					
 					while($rowImagen = $resultadoImagen->fetch_array(MYSQLI_ASSOC)){
-						$urlImagen = substr($rowImagen['imagen'], 1);						
-						echo '<a href="solo.php?p='.$row['id'].'"><img src='.$urlImagen.' /></a>';
+						$urlImagen = substr($rowImagen['imagen'], 1);
+						echo '<a href="solo.php?p='.$row['id'].'"><img src='.$urlImagen.' /></a>';											
 					}
 				}			
 				echo '<div class="datosProducto">';
@@ -707,10 +720,10 @@
 			if($resultado = $conexion->query($sqlProducto)){
 				if($row = $resultado->fetch_array(MYSQLI_ASSOC)){	
 
-					$descripcion = "<p class=notificacionPuja>Genial! Tu puja de ".$puja." para <a href=".URL_LOCAL."solo.php?p=".$producto." ><span>".$row['titulo']."</span></a> ha sido aceptada</p>";					
+					$descripcion = "<p class=notificacionPuja>Genial! Tu puja de ".$puja." para <a href=../solo.php?p=".$producto." ><span>".$row['titulo']."</span></a> ha sido aceptada</p>";					
 					$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(3, '".$descripcion."',".$usuario.")";
 					if($conexion->query($sqlNoti)){
-						$descripcion = "<p class=notificacionSobrepuja>Te han sobrepujado en: <a href=".URL_LOCAL."solo.php?p=".$producto." ><span>".$row['titulo']."</span></a></p>";
+						$descripcion = "<p class=notificacionSobrepuja>Te han sobrepujado en: <a href=../solo.php?p=".$producto." ><span>".$row['titulo']."</span></a></p>";
 						$sqlNoti = "insert into notificaciones(tipo,descripcion,usuario) values(5, '".$descripcion."',".$maximoPujador.")";
 						if($conexion->query($sqlNoti)){
 							header('Location: '.URL_LOCAL.'/interna/notificaciones.php');
@@ -752,7 +765,7 @@
 		if($resultado = $conexion->query($sql)){
 			while($row = $resultado->fetch_array(MYSQLI_ASSOC)){
 				echo "<article class='resultadoBusqueda'>";
-				echo "<p><a href=".URL_LOCAL."/solo.php?p=".$row['id'].">".$row['titulo']."</a></p>";				
+				echo "<p><a href=solo.php?p=".$row['id'].">".$row['titulo']."</a></p>";				
 				$descripcion = substr($row['descripcion'],0, 100);
 				echo '<p>'.$descripcion.'</p>';
 				echo "</article>";
@@ -775,7 +788,7 @@
 		if($resultado = $conexion->query($sql)){
 			while($row = $resultado->fetch_array(MYSQLI_ASSOC)){
 				echo "<article class='resultadoBusqueda'>";
-				echo "<p><a href=".URL_LOCAL."/solo.php?p=".$row['id'].">".$row['titulo']."</a></p>";
+				echo "<p><a href=solo.php?p=".$row['id'].">".$row['titulo']."</a></p>";
 				$descripcion = substr($row['descripcion'],0, 100);
 				echo '<p>'.$descripcion.'</p>';
 				echo "</article>";

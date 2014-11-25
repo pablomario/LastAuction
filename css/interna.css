@@ -3,6 +3,12 @@ article p{
 	color: #272822;
 }
 
+article p.subastaCreada{
+	padding: 5px;
+	margin: 5px;
+	background: #B3DD33;
+}
+
 article p.notificacionPuja{
 	padding: 5px;
 	margin: 5px;

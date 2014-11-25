@@ -8,7 +8,7 @@
 }
 
 body{
-	background: #2B3D44 ;
+	background: #2B3D44 url(../img/cosas.png);
 	background-attachment: fixed;
 }
 
@@ -229,4 +229,13 @@ footer{
 footer img{
 	margin: 0 auto;
 	padding: 10px;
+	opacity: 0.5;
+}
+
+footer img:hover{	
+	opacity: 1;
+}
+
+footer #logo{
+	opacity: 1;
 }

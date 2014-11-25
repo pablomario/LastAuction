@@ -44,8 +44,7 @@
 			</section>			
 		</div>
 
-		<footer>
-			<a id="invertido" href="http://127.0.0.1/php/lastauction/"><img src="img/favicon.png" alt=""></a>
-		</footer>
+		<!-- FOOTER -->
+	<?php include('footer.php'); ?>	
 	</body>
 </html>

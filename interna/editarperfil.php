@@ -36,7 +36,7 @@
 			<section>
 				<h2>Completar mi perfil</h2>
 				<form action="completar.php" method="POST" ENCTYPE="multipart/form-data" class="datos">													
-					Telefono / WhatsApp: <br>
+					Telefono / WhatsApp: *Se usara como validacion<br>
 					<input type="number" name="telefono" placeholder="666112233" required/> <br>				
 					     
 					Imagen de Perfil: <br>
@@ -47,8 +47,7 @@
 			</section>			
 		</div>
 
-		<footer>
-			<a id="invertido" href="http://127.0.0.1/php/lastauction/"><img src="../img/favicon.png" alt=""></a>
-		</footer>
+	<!-- FOOTER -->
+	<?php include('../footer.php'); ?>	
 	</body>
 </html>
