@@ -1,6 +1,6 @@
  <?php
 	
-	define("URL_LOCAL","http://127.0.0.1/lastauction/");
+	define("URL_LOCAL","http://127.0.0.1/php/lastauction/");
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -13,7 +13,7 @@
 	 * @return [type] [description]
 	 */
 	function conexion(){		
-		$conexion = new mysqli("127.0.0.1","root","","lastauction");
+		$conexion = new mysqli("127.0.0.1","root","root","lastauction");
 		if(mysqli_connect_errno()){
 			die("Error: " .mysqli_connect_errno());
 		}
@@ -21,17 +21,23 @@
 	}
 
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////                          FUNCIONES SEGURIDAD                               ////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * [noXSS description]
+	 * Funcion para eliminar caracteres especiales de HTML
+	 * @param  [type] $cadena [description]
+	 * @return [type]         [description]
+	 */
 	function noXSS($cadena){
 		$tofind = utf8_decode("><");
 		$replac = "  ";
 		$cadena = strtr($cadena,$tofind,$replac);
 		return $cadena;
 	}
-
-
-
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////                      LOGIN Y REGISTRO USUARIOS                             ////////
